@@ -1,0 +1,147 @@
+type: process
+key: requestVacations
+name: Request Vacations
+description: Start a vactions request
+icon: pen-alt # Search icons at https://fontawesome.com/icons?d=gallery&s=solid&m=free
+summary:
+  title: Vacations request for {{requester.firstName}} {{requester.lastName}}
+  subtitle: From {{startDate}} to {{endDate}}
+mainTable: requests
+startsFromExistingData: false
+publicStart: false
+
+permissions:
+  manager:
+    start: true
+    pause: true
+    archive: true
+    reassign: true
+  
+  employee:
+    start: true
+    pause:
+      own: true
+    archive:
+      own: true
+
+fieldGroups:
+  requestData:
+    rows:
+      - requester
+      - [startDate, endDate]
+      - requesterComments
+
+  readOnlyRequestData:
+    readonly: true
+    rows:
+      - _group: requestData
+      - daysOff
+
+forms:
+  startRequest:
+    name: Start Vacation Request
+    rows:
+      - _group: requestData
+
+  approveRequest:
+    name: Approve Vacations Request
+    rows:
+      - _group: readOnlyRequestData
+    outcomes:
+      approve: Approve
+      reject: 
+        title: Reject
+        form:
+          rows:
+            - rejectReason:
+                required: true
+      requestChanges:
+        title: Request Changes
+        form:
+          rows:
+            - changesRequested:
+                required: true
+
+  makeChanges:
+    name: Make Changes
+    rows:
+      - reviewedBy:
+          readonly: true
+      - changesRequested:
+          readonly: true
+      - _group: requestData
+
+serviceTasks:
+  calculateDaysoff:
+    name: Calculate requested days off
+    type: httpRequest
+    retries: 3
+    method: GET
+    url: http://localhost:3000/dev/daysoff
+    query:
+      startDate: {{startDate}}
+      endDate: {{endDate}}
+    resultMapping:
+      body.data: daysOff
+
+## Service tasks used by this process
+#serviceTasks:
+#  calculateScore:
+#    name: Calculate score
+#    type: httpRequest # type: Determines the type of service task.
+#    retries: 3
+#
+#    # "httpRequest" service task properties
+#
+#    method: POST # method: Can be any of GET, POST, PUT, PATCH, DELETE, OPTIONS, HEAD
+#    url: http://example.com/myEndpoint/{{field1.anotherField}}
+#    # Key/Value pairs for the query string, optional
+#    query:
+#      # the key of this object can be any text
+#      # the value can be any:
+#      # - text
+#      # - field - {{candidate.id}}
+#      # - variable - {{_vars.initiator.email}}
+#      # - secret - {{_secrets.mySecret}}
+#      # - a mix of them
+#      a: any text
+#      b: "{{candidate.id}}"
+#      d: "{{_secrets.mySecret}}"
+#      e: "{{_vars.initiator.id}}"
+#      f: A mix of anything {{_vars.initiator.email}} {{_secrets.abc}}
+#
+#    # key/value pairs of the headers to be sent to the request. Optional
+#    headers:
+#      # the key of this object can be any text
+#      # the value can be any text, field, variable, secret or a mix of them
+#      Authorization: Bearer {{_secrets.myToken}}
+#
+#    # Body: The body to be sent in the HTTP Request.
+#    # optional, can be either:
+#    # - a string
+#    # - an object
+#    #
+#    # if body is a string, it can be multiline, and can include any fields, variables, secrets.
+#    # body: this is the body to be sent {{candidate.id}}
+#    #
+#    # if body is an object, the object properties will be sent as form data
+#    body:
+#      myKey: myValue
+#      anotherKey: "{{_secrets.mySecret}}"
+#
+#    # resultMapping: Configures how the result will be stored. Optional
+#    resultMapping:
+#      # key can be any of:
+#      # - body
+#      # - a property of body (e.g. body.data or body.data.a.b.c[1])
+#      # - statusCode
+#      # - headers
+#      # - a specific header (e.g. headers.myHeader)
+#      #
+#      # value can be any of:
+#      # - a field name (e.g. candidate.score)
+#      # - a variable name (e.g. _vars.myVar)
+#      body: _vars.response
+#      body.data.score: candidate.score
+#      statusCode: _vars.statusCode
+#      headers.expires: _vars.expireDate

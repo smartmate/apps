@@ -1,0 +1,57 @@
+type: table
+key: request
+name: Request
+itemName: Requester
+summary:
+  title: Vacations request for {{requester.firstName}} {{requester.lastName}}
+  subtitle: From {{startDate}} to {{endDate}}
+
+fields:
+  requester:
+    type: user
+    label: Requester
+    required: true
+  startDate:
+    type: date
+    label: Start Date
+    required: true
+  endDate:
+    type: date
+    label: End Date
+    required: true
+  daysOff:
+    type: number
+    label: Total days daysOff
+    readOnly: true
+  requesterComments:
+    type: textArea
+    label: Requester Comments
+  approved:
+    type: boolean
+    label: Approved
+  needChanges:
+    type: boolean
+    label: Need Changes
+  rejectReason:
+    type: textArea
+    label: Manager Comments
+  changesRequested:
+    type: textArea
+    label: Manager Comments
+  reviewedBy:
+    type: user
+    label: Reviewed By
+
+
+permissions:
+  manager:
+    create: true
+    view: true
+    edit: true
+    delete:
+      own: true
+  
+  employee:
+    view:
+      own: true
+
