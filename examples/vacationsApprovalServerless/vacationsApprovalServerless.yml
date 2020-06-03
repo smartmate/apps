@@ -1,6 +1,6 @@
 type: app
-id: vationsApprovalServerless
-name: Vations Approval using Serverless Framework
+id: vacationsApprovalServerless
+name: Vacations Approval using Serverless Framework
 icon: umbrella-beach # Search icons at https://fontawesome.com/icons?d=gallery&s=solid&m=free
 color: "#57BEB5"
 
