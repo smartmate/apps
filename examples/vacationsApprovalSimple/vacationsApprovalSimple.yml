@@ -1,0 +1,14 @@
+type: app
+id: vacationsApprovalSimple
+name: Vacations Approval Simple Example
+icon: umbrella-beach # Search icons at https://fontawesome.com/icons?d=gallery&s=solid&m=free
+color: "#C7D13A"
+
+roles:
+  manager:
+    name: Manager
+    description: Can approve vacation requests and view all information
+  
+  employee:
+    name: Employee
+    description: Anyone that can request vacations
