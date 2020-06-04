@@ -13,6 +13,11 @@ In order to setup a Serverless funtion, first you need to install the Serverless
    npm install -g serverless
 ```
 
+Next install dependencies:
+```
+npm install
+```
+
 Then you need to create an `IAM USER and Access Key` in your AWS Console, for this you can follow the steps describe in this link: https://www.serverless.com/framework/docs/providers/aws/guide/credentials/
 
 The next step is to setup your credentials in the serveless cli:
