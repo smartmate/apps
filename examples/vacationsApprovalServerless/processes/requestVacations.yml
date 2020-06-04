@@ -77,7 +77,7 @@ serviceTasks:
     type: httpRequest
     retries: 3
     method: GET
-    url: https://rb4zwv3ws3.execute-api.us-east-1.amazonaws.com/dev/daysoff
+    url: <PLACE YOUT ENDPOINT URL>
     query:
       startDate: "{{startDate}}" 
       endDate: "{{endDate}}"
