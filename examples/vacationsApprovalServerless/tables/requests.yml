@@ -1,7 +1,7 @@
 type: table
-key: request
-name: Request
-itemName: Requester
+key: requests
+name: Requests
+itemName: Request
 summary:
   title: Vacations request for {{requester.firstName}} {{requester.lastName}}
   subtitle: From {{startDate}} to {{endDate}}
@@ -19,10 +19,6 @@ fields:
     type: date
     label: End Date
     required: true
-  daysOff:
-    type: number
-    label: Total days daysOff
-    readOnly: true
   requesterComments:
     type: textArea
     label: Requester Comments
@@ -41,7 +37,10 @@ fields:
   reviewedBy:
     type: user
     label: Reviewed By
-
+  daysOff:
+    type: number
+    label: Total Days daysOff
+    readOnly: true
 
 permissions:
   manager:
@@ -54,4 +53,3 @@ permissions:
   employee:
     view:
       own: true
-
