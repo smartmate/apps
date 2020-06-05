@@ -11,13 +11,13 @@ You can do it following this official guide: https://cloud.google.com/sdk/docs/d
 
 Once you have install the `gcloud cli` you can connect it with a project running:
 ```
-  gcloud init
+gcloud init
 ```
 You will need to login with your Google Account and then choose an existing project or you can create a new one.
 
 Next, you need to install dependencies:
 ```
-  npm install
+npm install
 ```
 
 #### Test the Funtion locally
@@ -26,16 +26,17 @@ You can see the code of the function in the `index.js` file, that logic calculat
 
 To run the function locally run the following command in the app root
 ```
-  npm start
+npm start
 ```
 
 The function will be listening by default in this direction `http://localhost:8080`
 Now you can test it with Postman or from a browser.
 
 #### Deploy the GCloud Function
+
 In order to deploy the funtion to GCloud you can run:
 ```
-  gcloud functions deploy 'calculateDaysOff' --runtime nodejs10 --trigger-http --entry-point=calculatedDaysOff
+gcloud functions deploy 'calculateDaysOff' --runtime nodejs10 --trigger-http --entry-point=calculatedDaysOff
 ```
 Here we are declaring that our function is called `calculateDaysOff` with a nodejs(version 10) runtime evironment. Also we specify that our function will be trigger by a http request and our entry point in the `index.js` file is `calculatedDaysOff`.
 
@@ -45,11 +46,10 @@ You need to copy this endpoint for call it from a Service Task in our Smartmate 
 ## Setup Smartmate Process
 
 Before starting, please take a look at the [Getting Started](https://docs.apps.smartmate.io/getting-started/index.html "Smartmate Getting Started Guide") page to get familiar with the `smartmate-cli`.
-Once you have your workspace set up, you can add this app by running: `sm add app` from insider your workspace, and selecting this app.
 
-Now you can go to the `processes/requestVacations.yml` file.
-Here you will see the `serviceTasks` property with a `calculateDaysOff` service tasks.
+Once you have your workspace set up, you can add this app by running: `sm add app` from insider your workspace, and selecting this app. Now you can go to the `processes/requestVacations.yml` file.
 
+You will see the `serviceTasks` property with a `calculateDaysOff` service tasks.
 Here in the `url` property you can paste the endpoint deployed to GCloud.
 ```
 serviceTasks:
