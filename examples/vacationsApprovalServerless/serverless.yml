@@ -1,0 +1,21 @@
+service: vacation-approval-service
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+
+exclude:
+  - templates/**
+  - processes/**
+  - tables/**
+
+plugins:
+  - serverless-offline
+
+functions:
+  calculatedDaysOff:
+    handler: handler.calculatedDaysOff
+    events:
+      - http: 
+          path: daysoff
+          method: get
