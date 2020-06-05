@@ -6,7 +6,7 @@ This example explains how to setup a Smartmate App using GCloud Functions.
 
 ## Setup GCloud Functions Project
 
-In order to setup a GCloud Funtion you need to install the `gcloud cli`
+In order to setup a GCloud Function you need to install the `gcloud cli`
 You can do it following this official guide: https://cloud.google.com/sdk/docs/downloads-interactive?hl=en
 
 Once you have install the `gcloud cli` you can connect it with a project running:
@@ -20,7 +20,7 @@ Next, you need to install dependencies:
 npm install
 ```
 
-#### Test the Funtion locally
+#### Test the Function locally
 
 You can see the code of the function in the `index.js` file, that logic calculates the difference between two dates.
 
@@ -34,13 +34,13 @@ Now you can test it with Postman or from a browser.
 
 #### Deploy the GCloud Function
 
-In order to deploy the funtion to GCloud you can run:
+In order to deploy the function to GCloud you can run:
 ```
 gcloud functions deploy 'calculateDaysOff' --runtime nodejs10 --trigger-http --entry-point=calculatedDaysOff
 ```
-Here we are declaring that our function is called `calculateDaysOff` with a nodejs(version 10) runtime evironment. Also we specify that our function will be trigger by a http request and our entry point in the `index.js` file is `calculatedDaysOff`.
+Here we are declaring that the function is called `calculateDaysOff` with a nodejs(version 10) runtime evironment. Also we specify that the function will be trigger by a http request and the entry point in the `index.js` file is `calculatedDaysOff`.
 
-When the process will be done, in the cli you can see the deployed endpoint url.
+When the deployment process will be done, in the cli you can see the deployed endpoint url.
 You need to copy this endpoint for call it from a Service Task in our Smartmate Process.
 
 ## Setup Smartmate Process
