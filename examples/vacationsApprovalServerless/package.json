@@ -2,7 +2,7 @@
   "name": "CalculatedDaysoff",
   "version": "1.0.0",
   "description": "",
-  "main": "handler.js",
+  "main": "src/handler.js",
   "dependencies": {},
   "devDependencies": {
     "serverless-offline": "^6.3.1"

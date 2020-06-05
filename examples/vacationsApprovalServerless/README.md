@@ -21,7 +21,7 @@ serverless config credentials --provider aws --key <YOUR ACCESS KEY> --secret <Y
 ```
 Now you can edit the file `serverless.yml` if you want to add more functions.
 We will upload our function called `calculatedDaysOff`. This function receives two dates like query strings and calculates the difference in days beetween the two dates.
-You can see the code in the `handler.js` file.
+You can see the code in the `src/handler.js` file.
 
 #### Test the Funtion locally
 
@@ -55,7 +55,7 @@ sls info
 
 Before starting, please take a look at the [Getting Started](https://docs.apps.smartmate.io/getting-started/index.html "Smartmate Getting Started Guide") page to get familiar with the `smartmate-cli`.
 
-Once you have your workspace set up, you can add this app by running: `sm add app` from insider your workspace, and selecting this app. Now you can go to the `processes/requestVacations.yml` file.
+Once you have your workspace set up, you can add this app by running: `sm add app` from inside your workspace, and selecting this app. Now you can go to the `processes/requestVacations.yml` file.
 
 You will see the `serviceTasks` property with a `calculateDaysOff` service tasks.
 Here in the `url` property you can paste the endpoint deployed to AWS.
