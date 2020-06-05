@@ -32,7 +32,7 @@ fieldGroups:
       - requesterComments
 
   readOnlyRequestData:
-    readonly: true
+    readOnly: true
     rows:
       - _group: requestData
       - daysOff
@@ -66,9 +66,9 @@ forms:
     name: Make Changes
     rows:
       - reviewedBy:
-          readonly: true
+          readOnly: true
       - changesRequested:
-          readonly: true
+          readOnly: true
       - _group: requestData
 
 serviceTasks:
