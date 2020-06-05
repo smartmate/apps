@@ -1,33 +1,33 @@
 # Vacation Approval App example using GCloud Functions
 
-With Smartmate you have the abillity to call custom endpoints in order to have manage custom logic outside the Smartmate enviroment.
+With Smartmate you have the ability to call custom endpoints in order to have manage custom logic outside the Smartmate environment.
 
 This example explains how to setup a Smartmate App using GCloud Functions.
 
 ## Setup GCloud Functions Project
 
-In order to setup a GCloud Funtion you need to install the `gcloudcli`
-Yo can do it following this official guide: https://cloud.google.com/sdk/docs/downloads-interactive?hl=en
+In order to setup a GCloud Funtion you need to install the `gcloud cli`
+You can do it following this official guide: https://cloud.google.com/sdk/docs/downloads-interactive?hl=en
 
-Once you install the `gcloud cli` you can connect the cli with a project running:
+Once you have install the `gcloud cli` you can connect it with a project running:
 ```
   gcloud init
 ```
-You will need to login with your Google account and then choose a project or you can create a new one.
+You will need to login with your Google Account and then choose an existing project or you can create a new one.
 
-Next install dependencies:
+Next, you need to install dependencies:
 ```
   npm install
 ```
 
 #### Test the Funtion locally
 
+You can see the code of the function in the `index.js` file, that logic calculates the difference between two dates.
+
 To run the function locally run the following command in the app root
 ```
   npm start
 ```
-
-You can see the code of the function in the `index.js` file, that code calculate the difference between two dates.
 
 The function will be listening by default in this direction `http://localhost:8080`
 Now you can test it with Postman or from a browser.
@@ -37,12 +37,15 @@ In order to deploy the funtion to GCloud you can run:
 ```
   gcloud functions deploy 'calculateDaysOff' --runtime nodejs10 --trigger-http --entry-point=calculatedDaysOff
 ```
-Here we are declaring that our function is called `calculateDaysOff` and runtime eviroment is nodejs version 10. Also we specify that our function will be trigger by a http request and our entry point in the `index.js` file is `calculatedDaysOff`.
+Here we are declaring that our function is called `calculateDaysOff` with a nodejs(version 10) runtime evironment. Also we specify that our function will be trigger by a http request and our entry point in the `index.js` file is `calculatedDaysOff`.
 
 When the process will be done, in the cli you can see the deployed endpoint url.
-You need to copy this endpoint for call it from a Service Task in the Smartmate Process.
+You need to copy this endpoint for call it from a Service Task in our Smartmate Process.
 
 ## Setup Smartmate Process
+
+Before starting, please take a look at the [Getting Started](https://docs.apps.smartmate.io/getting-started/index.html "Smartmate Getting Started Guide") page to get familiar with the `smartmate-cli`.
+Once you have your workspace set up, you can add this app by running: `sm add app` from insider your workspace, and selecting this app.
 
 Now you can go to the `processes/requestVacations.yml` file.
 Here you will see the `serviceTasks` property with a `calculateDaysOff` service tasks.
@@ -55,7 +58,7 @@ serviceTasks:
     type: httpRequest
     retries: 3
     method: GET
-    url: <YOUR URL>
+    url: <PLACE YOUR ENDPOINT URL>
     query:
       startDate: "{{startDate}}" 
       endDate: "{{endDate}}"
