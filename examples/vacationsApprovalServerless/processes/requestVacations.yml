@@ -77,7 +77,7 @@ serviceTasks:
     type: httpRequest
     retries: 3
     method: GET
-    url: <PLACE YOUT ENDPOINT URL>
+    url: <PLACE YOUR ENDPOINT URL>
     query:
       startDate: "{{startDate}}" 
       endDate: "{{endDate}}"
