@@ -77,7 +77,7 @@ serviceTasks:
     type: httpRequest
     retries: 3
     method: GET
-    url: https://us-central1-learning-functions-5c53c.cloudfunctions.net/calculateDaysOff
+    url: <REPLACE WITH YOUR ENDPOINT URL>
     query:
       startDate: "{{startDate}}" 
       endDate: "{{endDate}}"

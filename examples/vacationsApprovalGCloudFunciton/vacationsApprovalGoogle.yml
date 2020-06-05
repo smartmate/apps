@@ -1,8 +1,8 @@
 type: app
-id: vacationsApprovalServerless
-name: Vacations Approval usign Serverless framework
+id: vacationsApprovalGoogle
+name: Vacations Approval usign GCloud Funtions
 icon: umbrella-beach # Search icons at https://fontawesome.com/icons?d=gallery&s=solid&m=free
-color: "#FF3300"
+color: "#34EBE5"
 
 menuItems:
   - type: table

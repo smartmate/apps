@@ -22,6 +22,3 @@ exports.calculatedDaysOff = (request, response) => {
   const differenceInDays = getDifferenceInDays(new Date(startDate), new Date(endDate));
   response.status(200).send({ data: differenceInDays });
 };
-
-
-// gcloud functions deploy 'calculateDaysOff' --runtime nodejs10 --trigger-http --entry-point=calculatedDaysOff
