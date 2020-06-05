@@ -2,7 +2,7 @@
   "name": "vacationsApprovalGCloudFunciton",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "start": "functions-framework --target=calculatedDaysOff"
   },
