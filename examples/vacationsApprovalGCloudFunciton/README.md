@@ -23,12 +23,10 @@ npm install
 #### Test the Function locally
 
 You can see the code of the function in the `index.js` file, that logic calculates the difference between two dates.
-
 To run the function locally run the following command in the app root
 ```
 npm start
 ```
-
 The function will be listening by default in this direction `http://localhost:8080`
 Now you can test it with Postman or from a browser.
 
