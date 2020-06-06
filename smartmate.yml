@@ -1,2 +1,5 @@
-# empty file, used just to determine the smartmate workspace path
-{}
+package:
+  exclude:
+    - node_modules
+    - jspm_packages
+    - .serverless
