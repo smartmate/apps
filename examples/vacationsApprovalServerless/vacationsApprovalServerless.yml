@@ -1,0 +1,18 @@
+type: app
+id: vacationsApprovalServerless
+name: Vacations Approval usign Serverless framework
+icon: umbrella-beach # Search icons at https://fontawesome.com/icons?d=gallery&s=solid&m=free
+color: "#FF3300"
+
+menuItems:
+  - type: table
+    target: requests
+
+roles:
+  manager:
+    name: Manager
+    description: Can approve vacation requests and view all information
+  
+  employee:
+    name: Employee
+    description: Anyone that can request vacations

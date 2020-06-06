@@ -1,0 +1,15 @@
+{
+  "name": "vacationsApprovalGCloudFunciton",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "functions-framework --target=calculatedDaysOff"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@google-cloud/functions-framework": "^1.5.1"
+  }
+}

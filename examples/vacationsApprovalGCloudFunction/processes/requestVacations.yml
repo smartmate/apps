@@ -1,0 +1,85 @@
+type: process
+key: requestVacations
+name: Request Vacations
+description: Start a vactions request
+icon: pen-alt # Search icons at https://fontawesome.com/icons?d=gallery&s=solid&m=free
+summary:
+  title: Vacations request for {{requester.firstName}} {{requester.lastName}}
+  subtitle: From {{startDate}} to {{endDate}}
+mainTable: requests
+startsFromExistingData: false
+publicStart: false
+
+permissions:
+  manager:
+    start: true
+    pause: true
+    archive: true
+    reassign: true
+  
+  employee:
+    start: true
+    pause:
+      own: true
+    archive:
+      own: true
+
+fieldGroups:
+  requestData:
+    rows:
+      - requester
+      - [startDate, endDate]
+      - requesterComments
+
+  readOnlyRequestData:
+    readOnly: true
+    rows:
+      - _group: requestData
+      - daysOff
+
+forms:
+  startRequest:
+    name: Start Vacation Request
+    rows:
+      - _group: requestData
+
+  approveRequest:
+    name: Approve Vacations Request
+    rows:
+      - _group: readOnlyRequestData
+    outcomes:
+      approve: Approve
+      reject: 
+        title: Reject
+        form:
+          rows:
+            - rejectReason:
+                required: true
+      requestChanges:
+        title: Request Changes
+        form:
+          rows:
+            - changesRequested:
+                required: true
+
+  makeChanges:
+    name: Make Changes
+    rows:
+      - reviewedBy:
+          readOnly: true
+      - changesRequested:
+          readOnly: true
+      - _group: requestData
+
+serviceTasks:
+  calculateDaysOff:
+    name: Calculate Days Off
+    type: httpRequest
+    retries: 3
+    method: GET
+    url: <REPLACE WITH YOUR ENDPOINT URL>
+    query:
+      startDate: "{{startDate}}" 
+      endDate: "{{endDate}}"
+    resultMapping:
+      body.data: daysOff
