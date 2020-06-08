@@ -100,6 +100,6 @@ Now you can publish your app.
 ```
 sm publish -f
 ```
-Before test the Smarmate process you need to fill the secret `azureCode` in the app settings in the smartmate web app.
+Before test the Smarmate process you need to set the secret `azureCode` in the app settings in the smartmate web app.
 
 After you set this secret you can test the Smartmate Process.
