@@ -77,8 +77,9 @@ serviceTasks:
     type: httpRequest
     retries: 3
     method: GET
-    url: <REPLACE WITH YOUR ENDPOINT URL>
+    url: <PLACE YOUR ENDPOINT URL>
     query:
+      code: "{{_secrets.azureCode}}"
       startDate: "{{startDate}}" 
       endDate: "{{endDate}}"
     resultMapping:

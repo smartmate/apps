@@ -2,18 +2,37 @@
 
 With Smartmate you have the ability to call custom endpoints in order to have manage custom logic outside the Smartmate environment.
 
-This example explains how to setup a Smartmate App using GCloud Functions.
+This example explains how to setup a Smartmate App using Azure Functions.
 
-## Setup GCloud Functions Project
+## Setup Azure Functions Project
 
-In order to setup a GCloud Function you need to install the `gcloud cli`
-You can do it following this official guide: https://cloud.google.com/sdk/docs/downloads-interactive?hl=en
+In order to setup a Azure Function you need to install the `Azure Cli` and the `Azure Functions Core Tools`
+This tools brings the ability to create a funciton project and setup the resources.
+To install `Azure cli` follow this guide: https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-macos?view=azure-cli-latest
+To install `Azure Functions Core Tools` follow this guide: https://docs.microsoft.com/en-us/azure/azure-functions/functions-run-local?tabs=macos%2Ccsharp%2Cbash#v2
 
-Once you have install the `gcloud cli` you can connect it with a project running:
+Once you have install this tools, you can proceed to login in the `azure cli`:
 ```
-gcloud init
+az login
 ```
-You will need to login with your Google Account and then choose an existing project or you can create a new one.
+This will redirect you to a login page. Enter your credentials and you will be logged in.
+
+Next, you need to initialize the function project.
+Run the `func init` command, as follows, to create a functions project in a folder named `VacationsApproval` with the specified runtime:
+```
+func init VacationsApproval --javascript
+```
+Navigate into the project folder:
+```
+cd VacationsApproval
+```
+Now, you need to add a funciton to your project by using the following command, `--name` argument is tha unique name of your funciton and `--template` argument specifies the function's trigger.
+```
+func new --name calculateDaysOff --template "HTTP trigger"
+```
+`func new` creates a subfolder matching the function name that contains a code file appropriate to the project's chosen language and a configuration file named function.json.
+
+In the `index.js` file you can see the logic for this funciton, and in the `function.json` you can see the configuration options for the funtion.
 
 Next, you need to install dependencies:
 ```
@@ -22,24 +41,34 @@ npm install
 
 #### Test the Function locally
 
-You can see the code of the function in the `src/index.js` file, that logic calculates the difference between two dates.
-To run the function locally run the following command in the app root
+Run the following command to run the function locally:
 ```
-npm start
+func start
 ```
-The function will be listening by default in this direction `http://localhost:8080`
+You will see the url to test the function.
 Now you can test it with Postman or from a browser.
 
-#### Deploy the GCloud Function
+#### Deploy the Azure Function
 
-In order to deploy the function to GCloud you can run:
+In order to deploy the function to Azure, first you need to create a resorce group and specify the location:
 ```
-gcloud functions deploy 'calculateDaysOff' --runtime nodejs10 --trigger-http --entry-point=calculatedDaysOff
+az group create --name CalculateDaysOff-rg --location eastus
 ```
-Here we are declaring that the function is called `calculateDaysOff` with a nodejs(version 10) runtime evironment. Also we specify that the function will be trigger by a http request and the entry point in the `index.js` file is `calculatedDaysOff`.
 
-When the deployment process is done, in the cli you can see the deployed endpoint url.
-You need to copy this endpoint to call it from a Service Task in our Smartmate Process.
+Next, you need to create a general-purpose storage account for the resource group and region:
+```
+az storage account create --name <STORAGE_NAME> --location westeurope --resource-group AzureFunctionsQuickstart-rg --sku Standard_LRS
+```
+Then, create the funciton app, in the following command, replace <STORAGE_NAME> with the name of the account you used in the previous step, and replace <APP_NAME> with a globally unique name appropriate to you. The <APP_NAME> is also the default DNS domain for the function app.
+```
+az functionapp create --resource-group CalculateDaysOff-rg --consumption-plan-location eastus --runtime node --runtime-version 10 --functions-version 2 --name <APP_NAME> --storage-account <STORAGE_NAME>
+```
+
+The last step is deploy the function:
+```
+func azure functionapp publish <APP_NAME>
+```
+When the process is done, you will see the `Invoke url`, the url include a `code` query string. You should keep this code so you can use it with the smartmate process.
 
 ## Setup Smartmate Process
 
@@ -58,15 +87,19 @@ serviceTasks:
     method: GET
     url: <PLACE YOUR ENDPOINT URL>
     query:
+      code: "{{_secrets.azureCode}}"
       startDate: "{{startDate}}" 
       endDate: "{{endDate}}"
     resultMapping:
       body.data: daysOff
 ```
-This service task will take the values of `startDate` and `endDate` fields and send it to the endpoint like query strings.
+This service task will take the values of `startDate` and `endDate` fields and send it to the endpoint like query strings. Also you need to set the `azureCode` secret to be used in the process.
 The response of the call will fill the `daysOff` field so it can be visibly in the process.
 
-Now you can publish your app and test it in your Smartmate workspace.
+Now you can publish your app.
 ```
 sm publish -f
 ```
+Before test the Smarmate process you need to fill the secret `azureCode` in the app settings in the smartmate web app.
+
+After you set this secret you can test the Smartmate Process.
