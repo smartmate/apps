@@ -1,0 +1,14 @@
+{
+  "name": "calculate_days_off",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "repository": "",
+  "author": "SAM CLI",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.18.0"
+  },
+  "scripts": {},
+  "devDependencies": {}
+}
