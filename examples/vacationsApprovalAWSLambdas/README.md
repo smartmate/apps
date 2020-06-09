@@ -1,7 +1,7 @@
 # Vacation Approval App example using AWS Lambdas
 
 With Smartmate you have the ability to call custom endpoints in order to manage custom logic outside the Smartmate environment.
-This example explains how to setup a Smartmate App using a AWS Lambda.
+This example explains how to set up a Smartmate App that uses an AWS Lambda function to execute custom logic.
 
 ## Setup AWS Lambda Project
 
