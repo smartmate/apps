@@ -1,6 +1,6 @@
 # Vacation Approval App example using Serverless Framework
 
-With Smartmate you have the ability to call custom endpoints in order to have manage custom logic outside the Smartmate environment.
+With Smartmate you have the ability to call custom endpoints in order to manage custom logic outside the Smartmate environment.
 This example explains how to setup a Smartmate App using Serverless Framework.
 `Note`: With Serveless Framework you can use many Cloud Providers, in this case we will be using AWS.
 
