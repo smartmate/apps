@@ -1,0 +1,10 @@
+{
+  "name": "",
+  "version": "",
+  "description": "",
+  "main": "src/",
+  "scripts": {
+    "test": "echo \"No tests yet...\""
+  },
+  "author": ""
+}

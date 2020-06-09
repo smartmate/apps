@@ -3,3 +3,5 @@ package:
     - node_modules
     - jspm_packages
     - .serverless
+    - .vscode
+    - calculateDaysOff
