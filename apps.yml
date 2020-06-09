@@ -8,7 +8,7 @@
 
 - name: vacationsApprovalGCloud
   path: examples/vacationsApprovalGCloudFunction
-  description: A example of a vacations approval process using a GCloud Funtion to calculate days off
+  description: A example of a vacations approval process using a GCloud Function to calculate days off
 
 - name: vacationsApprovalAzureFunctions
   path: examples/vacationsApprovalAzureFunctions
