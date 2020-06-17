@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:activiti="http://activiti.org/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.activiti.org/processdef">
+  <process id="example_process" name="Example process" isExecutable="true">
+    <startEvent id="startEvent1" name="Request Vacations" activiti:formKey="startRequest" activiti:initiator="initiator">
+      <outgoing>SequenceFlow_1ahabkr</outgoing>
+    </startEvent>
+    <userTask id="UserTask_06p053z" name="Approve Vacations Request" activiti:formKey="approveRequest" activiti:assignee="" activiti:candidateUsersField="" activiti:candidateGroupsField="" activiti:candidateRoles="manager" activiti:candidateUserFieldName="reviewedBy" activiti:candidateUserVariableName="">
+      <incoming>SequenceFlow_0qki55s</incoming>
+      <incoming>SequenceFlow_10bczif</incoming>
+      <outgoing>SequenceFlow_0p2x67g</outgoing>
+    </userTask>
+    <exclusiveGateway id="ExclusiveGateway_1q8trus" name="Approval Decision">
+      <incoming>SequenceFlow_0p2x67g</incoming>
+      <outgoing>SequenceFlow_19gc2yj</outgoing>
+      <outgoing>SequenceFlow_1z0n2zk</outgoing>
+      <outgoing>SequenceFlow_1w2zwgo</outgoing>
+    </exclusiveGateway>
+    <sequenceFlow id="SequenceFlow_0p2x67g" sourceRef="UserTask_06p053z" targetRef="ExclusiveGateway_1q8trus" />
+    <emailTask id="EmailTask_1cei6rc" name="Vacations Approved" implementation="email-service-task" activiti:emailTo="{{_vars.initiator.email}},{{requester}}" activiti:subject="Your vacations request has been approved" activiti:templateName="templates/approved.pug">
+      <incoming>SequenceFlow_19gc2yj</incoming>
+      <outgoing>SequenceFlow_1gz38p7</outgoing>
+    </emailTask>
+    <sequenceFlow id="SequenceFlow_19gc2yj" name="Approved" sourceRef="ExclusiveGateway_1q8trus" targetRef="EmailTask_1cei6rc">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[{"id":"g-ImshP3LQYvtNcEYSyA_47","rules":[{"id":"r-CMq7qiwyPSOIeN_izOh9U","field":{"value":"approveRequest","label":"approveRequest","type":"OUTCOME"},"value":{"value":"approve","label":"approve"},"operator":{"value":"is","label":"is"}}],"combinator":"and","not":false}]]></conditionExpression>
+    </sequenceFlow>
+    <emailTask id="EmailTask_0mejsob" name="Vacations Rejected" implementation="email-service-task" activiti:subject="Your vacations request has been rejected" activiti:templateName="templates/rejected.pug" activiti:emailTo="{{_vars.initiator.email}},{{requester}}">
+      <incoming>SequenceFlow_1z0n2zk</incoming>
+      <outgoing>SequenceFlow_080na5f</outgoing>
+    </emailTask>
+    <sequenceFlow id="SequenceFlow_1z0n2zk" name="Rejected" sourceRef="ExclusiveGateway_1q8trus" targetRef="EmailTask_0mejsob">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[{"id":"g-CTjXm7zThtVitJnliVGtC","rules":[{"id":"r-aVxmC9TnAT82gytEr5eRV","field":{"value":"approveRequest","label":"approveRequest","type":"OUTCOME"},"value":{"value":"reject","label":"reject"},"operator":{"value":"is","label":"is"}}],"combinator":"and","not":false}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="UserTask_0h5ri9x" name="Make Changes" activiti:formKey="makeChanges" activiti:assignee="${initiator}" activiti:candidateUsersField="" activiti:candidateGroupsField="" activiti:candidateRoles="">
+      <incoming>SequenceFlow_1w2zwgo</incoming>
+      <outgoing>SequenceFlow_0qki55s</outgoing>
+    </userTask>
+    <sequenceFlow id="SequenceFlow_1w2zwgo" name="Need Changes" sourceRef="ExclusiveGateway_1q8trus" targetRef="UserTask_0h5ri9x">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[{"id":"g-sWJ0_wEplsmoYKKxTU7_J","rules":[{"id":"r-BZWqQSGMbI8XkVtH0iioZ","field":{"value":"approveRequest","label":"approveRequest","type":"OUTCOME"},"value":{"value":"requestChanges","label":"requestChanges"},"operator":{"value":"is","label":"is"}}],"combinator":"and","not":false}]]></conditionExpression>
+    </sequenceFlow>
+    <endEvent id="EndEvent_0akppz9">
+      <incoming>SequenceFlow_1gz38p7</incoming>
+      <incoming>SequenceFlow_080na5f</incoming>
+    </endEvent>
+    <sequenceFlow id="SequenceFlow_1gz38p7" sourceRef="EmailTask_1cei6rc" targetRef="EndEvent_0akppz9" />
+    <sequenceFlow id="SequenceFlow_080na5f" sourceRef="EmailTask_0mejsob" targetRef="EndEvent_0akppz9" />
+    <sequenceFlow id="SequenceFlow_0qki55s" sourceRef="UserTask_0h5ri9x" targetRef="UserTask_06p053z" />
+    <serviceTask id="ServiceTask_137242x" name="Calculate Days Off" implementation="sm2-service-task" activiti:serviceTask="calculateDaysOff">
+      <incoming>SequenceFlow_1ahabkr</incoming>
+      <outgoing>SequenceFlow_10bczif</outgoing>
+    </serviceTask>
+    <sequenceFlow id="SequenceFlow_1ahabkr" sourceRef="startEvent1" targetRef="ServiceTask_137242x" />
+    <sequenceFlow id="SequenceFlow_10bczif" sourceRef="ServiceTask_137242x" targetRef="UserTask_06p053z" />
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_example_process">
+    <bpmndi:BPMNPlane id="BPMNPlane_completeformprocess" bpmnElement="example_process">
+      <bpmndi:BPMNShape id="BPMNShape_startEvent1" bpmnElement="startEvent1">
+        <omgdc:Bounds x="-35" y="110" width="30" height="30" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="-44" y="147" width="48" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_06p053z_di" bpmnElement="UserTask_06p053z">
+        <omgdc:Bounds x="240" y="85" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ExclusiveGateway_1q8trus_di" bpmnElement="ExclusiveGateway_1q8trus" isMarkerVisible="true">
+        <omgdc:Bounds x="395" y="100" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="375" y="76" width="89" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0p2x67g_di" bpmnElement="SequenceFlow_0p2x67g">
+        <di:waypoint x="340" y="125" />
+        <di:waypoint x="395" y="125" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EmailTask_1cei6rc_di" bpmnElement="EmailTask_1cei6rc">
+        <omgdc:Bounds x="500" y="85" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_19gc2yj_di" bpmnElement="SequenceFlow_19gc2yj">
+        <di:waypoint x="445" y="125" />
+        <di:waypoint x="500" y="125" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="449" y="107" width="48" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EmailTask_0mejsob_di" bpmnElement="EmailTask_0mejsob">
+        <omgdc:Bounds x="500" y="200" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1z0n2zk_di" bpmnElement="SequenceFlow_1z0n2zk">
+        <di:waypoint x="420" y="150" />
+        <di:waypoint x="420" y="240" />
+        <di:waypoint x="500" y="240" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="438" y="243" width="44" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_0h5ri9x_di" bpmnElement="UserTask_0h5ri9x">
+        <omgdc:Bounds x="500" y="310" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1w2zwgo_di" bpmnElement="SequenceFlow_1w2zwgo">
+        <di:waypoint x="420" y="150" />
+        <di:waypoint x="420" y="350" />
+        <di:waypoint x="500" y="350" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="398" y="353" width="74" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_0akppz9_di" bpmnElement="EndEvent_0akppz9">
+        <omgdc:Bounds x="662" y="107" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1gz38p7_di" bpmnElement="SequenceFlow_1gz38p7">
+        <di:waypoint x="600" y="125" />
+        <di:waypoint x="662" y="125" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_080na5f_di" bpmnElement="SequenceFlow_080na5f">
+        <di:waypoint x="600" y="240" />
+        <di:waypoint x="680" y="240" />
+        <di:waypoint x="680" y="143" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0qki55s_di" bpmnElement="SequenceFlow_0qki55s">
+        <di:waypoint x="550" y="390" />
+        <di:waypoint x="550" y="420" />
+        <di:waypoint x="290" y="420" />
+        <di:waypoint x="290" y="165" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_137242x_di" bpmnElement="ServiceTask_137242x">
+        <omgdc:Bounds x="60" y="85" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1ahabkr_di" bpmnElement="SequenceFlow_1ahabkr">
+        <di:waypoint x="-5" y="125" />
+        <di:waypoint x="60" y="125" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_10bczif_di" bpmnElement="SequenceFlow_10bczif">
+        <di:waypoint x="160" y="125" />
+        <di:waypoint x="240" y="125" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
