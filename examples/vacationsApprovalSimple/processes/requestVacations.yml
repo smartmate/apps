@@ -4,7 +4,7 @@ name: Request Vacations
 description: Start a vactions request
 icon: pen-alt # Search icons at https://fontawesome.com/icons?d=gallery&s=solid&m=free
 summary:
-  title: Vacations request for {{requester.firstName}} {{requester.lastName}}
+  title: Vacations request
   subtitle: From {{startDate}} to {{endDate}}
 mainTable: requests
 startsFromExistingData: false
