@@ -1,0 +1,23 @@
+{
+  "name": "smartmate-apps",
+  "version": "1.0.0",
+  "description": "Smartmate is Business Automation as Code.",
+  "main": "load-apps.js",
+  "scripts": {
+    "load-apps": "node load-apps.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smartmate/apps.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/smartmate/apps/issues"
+  },
+  "homepage": "https://github.com/smartmate/apps#readme",
+  "dependencies": {
+    "smartmate-workspace-tools": "^3.8.3"
+  }
+}

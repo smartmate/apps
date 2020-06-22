@@ -90,8 +90,8 @@ serviceTasks:
       code: "{{_secrets.azureCode}}"
       startDate: "{{startDate}}" 
       endDate: "{{endDate}}"
-    resultMapping:
-      body.data: daysOff
+    mapping:
+      daysOff: "{{body.data}}"
 ```
 This service task will take the values of `startDate` and `endDate` fields and send it to the endpoint like query strings. Also you need to set the `azureCode` secret to be used in the process.
 The response of the call will fill the `daysOff` field so it can be visibly in the process.
