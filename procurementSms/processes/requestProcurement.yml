@@ -1,0 +1,127 @@
+type: process
+key: requestProcurement
+name: Request Procurement
+description: Request a procurement for a department
+icon: money-bill
+summary:
+  title: "Procurement {{title}}"
+  subtitle: "Created at {{createdAt}}"
+mainTable: procurements
+startsFromExistingData: false
+publicStart: false
+
+fieldGroups:
+  readOnlyRequestData:
+    readOnly: true
+    rows:
+      - requester
+      - title
+      - quantity
+      - justification
+      - department
+      - comments
+  
+  requestWithQuotations:
+    rows:
+      - _group: readOnlyRequestData
+      - quotations
+  
+permissions:
+  requester:
+    start: true
+    pause:
+      own: true
+    archive: false
+  manager:
+    start: true
+    pause: true
+    archive: true
+  purchaser:
+    start: true
+    pause:
+      own: true
+    archive: false
+  accountant:
+    start: true
+    pause:
+      own: true
+    archive: false
+
+
+forms:
+  request:
+    name: Procurement Request
+    rows:
+      - _statement: In the next field enter the request title.
+      - title
+      - quantity
+      - _statement: "In the \"Justification\" field enter the reason why this procurement is need it"
+      - justification
+      - _statement: "In the \"Department\" field select the Department that this request is for"
+      - department
+      - _statement: Choose a manager to review this application
+      - manager
+      - comments
+
+  analyzeRequest:
+    name: Analyze and Approve
+    rows:
+      - _group: readOnlyRequestData
+    outcomes:
+      approve: Approve
+      reject:
+        title: Reject
+        form:
+          rows:
+            - rejectReason:
+                required: true
+
+  requestQuotation:
+    name: Request Quotations
+    rows:
+      - _group: requestWithQuotations
+
+  analyzeQuotations:
+    name: Analyze and Approve Quotations
+    rows:
+      - _group: requestWithQuotations
+    outcomes:
+      cancelProcurement:
+        title: Cancel Procurement
+        form:
+          rows:
+            - rejectReason:
+                required: true
+      approve:
+        title: Approve
+        form:
+          rows:
+            - approvedQuotation
+      reject:
+        title: Reject
+        form:
+          rows:
+            - rejectQuotationsReason:
+                required: true
+
+  performPurchase:
+    name: Performe Purchase
+    rows:
+      - _group: requestWithQuotations
+      - approvedQuotation:
+          readOnly: true
+      - liveryDate
+
+  receivePurchase:
+    name: Receive Purchase
+    rows:
+      - _group: readOnlyRequestData
+      - liveryDate:
+          readOnly: true
+
+  performPayment:
+    name: Perform Payment 
+    rows:
+      - _group: requestWithQuotations
+      - approvedQuotation:
+          readOnly: true

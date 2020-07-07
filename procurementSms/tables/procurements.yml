@@ -1,0 +1,112 @@
+type: table
+key: procurements
+name: Procurements
+itemName: Procurement
+summary:
+  title: "Procurement {{title}}"
+  subtitle: "Created at  {{createdAt}}"
+
+permissions:
+  requester:
+    create: false
+    view: true
+    edit:
+      own: false
+      assigned: false
+    delete: false
+  manager:
+    create: false
+    view: true
+    edit:
+      own: true
+      assigned: true
+    delete: true
+  purchaser:
+    create: false
+    view: true
+    edit:
+      own: false
+      assigned: false
+    delete: false
+  accountant:
+    create: false
+    view: true
+    edit:
+      own: false
+      assigned: false
+    delete: false
+
+fields:
+  createdAt:
+    type: datetime
+    label: Created At
+  approvedAt:
+    type: datetime
+    label: Approved At
+  approved:
+    type: boolean
+    label: Approved
+  requester:
+    type: user
+    label: Requester
+  manager:
+    type: relationship
+    label: Manager
+    table: managers
+    required: true
+  selectedManager:
+    type: user
+    label: Selected Manager
+    readOnly: true
+  accountant:
+    type: user
+    label: Accountant 
+  purchaser:
+    type: user
+    label: Purchaser
+  approvedQuotation:
+    type: text
+    label: Approved Quotation
+  rejectReason:
+    type: textArea
+    label: Manager Comments
+  rejectQuotationsReason:
+    type: textArea
+    label: Manager Comments
+  procurementType:
+    type: select
+    label: Procurement Type
+    options:
+      service: Service
+      supplies: Supplies
+    required: true
+  title:
+    type: text
+    label: Title
+    required: true
+  justification:
+    type: textArea
+    label: Justification
+    required: true
+  comments:
+    type: textArea
+    label: Comments
+  quantity:
+    type: number
+    label: "Quantity (if applies)"
+  liveryDate:
+    type: date
+    label: Delivery Date
+  department:
+    type: select
+    label: Department
+    options:
+      accountable: Accountable Department
+      ti: TI Department
+      ht: HR Department
+      management: management department
+    required: true
+  quotations:
+    type: table
+    label: Quotations
+    table: quotations
