@@ -3,6 +3,7 @@ id: vacationsApprovalSimple
 name: Vacations Approval Simple Example
 icon: umbrella-beach # Search icons at https://fontawesome.com/icons?d=gallery&s=solid&m=free
 color: "#C7D13A"
+active: false
 
 roles:
   manager:

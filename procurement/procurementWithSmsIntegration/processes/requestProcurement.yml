@@ -4,7 +4,7 @@ name: Request Procurement
 description: Handles a procurement request, with manager approval, quotation requests, and payment processing. Includes integration with Twilio to send an SMS to the manager that should approve the request.
 icon: money-bill
 summary:
-  title: "Purchase Requisition by {{requestedBy.firstName}} {{requestedBy.lastName}}"
+  title: "Purchase Requisition"
   subtitle: "Created at {{createdAt}}"
 mainTable: purchaseRequisition
 startsFromExistingData: false
@@ -14,12 +14,18 @@ fieldGroups:
   readOnlyRequestData:
     readOnly: true
     rows:
-      - description
-      - requestedBy
-      - requestedItems
-      - justification
-      - department
-      - comments
+      - description:
+          readOnly: true
+      - requestedBy:  
+          readOnly: true
+      - requestedItems:
+          readOnly: true
+      - justification:
+          readOnly: true
+      - department:
+          readOnly: true
+      - comments:
+          readOnly: true
   
   requestWithQuotations:
     rows:
@@ -126,3 +132,19 @@ forms:
       - _group: requestWithQuotations
       - approvedQuotation:
           readOnly: true
+
+serviceTasks:
+  sendSms:
+    name: Notify Manager
+    type: httpRequest
+    retries: 3
+    method: POST
+    url: https://us-central1-smartmate-io.cloudfunctions.net/sendSms
+    query:
+      workspace: "demo"
+  saveRequester:
+    name: Save requester
+    type: dataSetter
+    mapping:
+      requestedBy: "{{_vars.initiator.id}}"
+

@@ -59,7 +59,11 @@ fields:
     label: Approved Quotation
   description:
     type: text
-    lael: Description
+    label: Description
+    required: true
+  approvedSignature:
+    type: signature
+    label: Reviewer Signature 
     required: true
   rejectReason:
     type: textArea

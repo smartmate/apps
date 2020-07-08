@@ -3,6 +3,7 @@ id: vacationsApprovalServerless
 name: Vacations Approval usign Serverless framework
 icon: umbrella-beach # Search icons at https://fontawesome.com/icons?d=gallery&s=solid&m=free
 color: "#FF3300"
+active: false
 
 menuItems:
   - type: table

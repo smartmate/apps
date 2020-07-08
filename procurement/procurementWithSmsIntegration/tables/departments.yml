@@ -4,7 +4,6 @@ name: Departments
 itemName: Department
 summary:
   title: "{{name}} Department"
-  subtitle: ""
 
 permissions:
   requester:
@@ -46,3 +45,7 @@ fields:
     label: User Group
     required: true
 
+form:
+  rows:
+    - name
+    - departmentGroup

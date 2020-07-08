@@ -55,5 +55,5 @@ fields:
   quantity:
     type: number
     label: Quantity
-    default: 1
+    defaultValue: 1
     required: true
