@@ -1,10 +1,10 @@
 type: table
-key: quotations
-name: quotations
-itemName: Quotation
+key: departments
+name: Departments
+itemName: Department
 summary:
-  title: "{{provider}} - {{contact}}"
-  subtitle: "Total: {{total}}"
+  title: "{{name}} Department"
+  subtitle: ""
 
 permissions:
   requester:
@@ -37,23 +37,16 @@ permissions:
     delete: false
 
 fields:
-  provider:
+  name:
     type: text
-    label: Provider
-  contact:
-    type: text
+    label: Department Name
     required: true
-    label: Contact 
-  unitPrice:
-    type: money
-    label: Unit Price
+  departmentGroup:
+    type: group
+    label: User Group
     required: true
-  quantity:
-    type: number
-    label: "Quantity (if applies)"
-  total:
-    type: money
-    label: Total
-  productDescription:
-    type: text
-    label: Description
+
+form:
+  rows:
+    - _title: Add Department
+    - name

@@ -17,3 +17,7 @@
 - name: vacationsApprovalAWSLambdas
   path: examples/vacationsApprovalAWSLambdas
   description: A simple example of a vacations approval process using an AWS Lambda to calculate days off
+
+- name: procurementSimpleProcessWithSmsIntegration
+  path: procurement/procurementWithSmsIntegration
+  description: A simple example of a procurement process with SMS integration using Twilio

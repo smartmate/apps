@@ -4,7 +4,7 @@
     <startEvent id="startEvent1" name="Start" activiti:formKey="request" activiti:initiator="initiator">
       <outgoing>SequenceFlow_1bjycjb</outgoing>
     </startEvent>
-    <userTask id="UserTask_1eiz5ag" name="Analyze and Approve" activiti:formKey="analyzeRequest" activiti:assignee="" activiti:candidateUserVariableName="" activiti:candidateUserFieldName="selectedManager" activiti:candidateUsersField="" activiti:candidateGroupsField="" activiti:candidateRoles="manager">
+    <userTask id="UserTask_1eiz5ag" name="Analyze and Approve" activiti:formKey="analyzeRequest" activiti:assignee="" activiti:candidateUserVariableName="" activiti:candidateUserFieldName="" activiti:candidateUsersField="reviewedBy" activiti:candidateGroupsField="" activiti:candidateRoles="">
       <incoming>SequenceFlow_1bjycjb</incoming>
       <outgoing>SequenceFlow_17jodr1</outgoing>
     </userTask>
@@ -16,12 +16,12 @@
     </exclusiveGateway>
     <sequenceFlow id="SequenceFlow_17jodr1" sourceRef="UserTask_1eiz5ag" targetRef="ExclusiveGateway_0gfn3n5" />
     <endEvent id="EndEvent_0prcxei">
-      <incoming>SequenceFlow_1ti8soo</incoming>
+      <incoming>SequenceFlow_1jcycc4</incoming>
     </endEvent>
-    <sequenceFlow id="SequenceFlow_1ti8soo" name="Reject" sourceRef="ExclusiveGateway_0gfn3n5" targetRef="EndEvent_0prcxei">
+    <sequenceFlow id="SequenceFlow_1ti8soo" name="Reject" sourceRef="ExclusiveGateway_0gfn3n5" targetRef="EmailTask_0el9oin">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[{"id":"g-wGUGF5yRI-xkGs6KtArC6","rules":[{"id":"r-Zf1RTxp5245fcELMfHRMV","field":{"value":"analyzeRequest","label":"analyzeRequest","type":"OUTCOME"},"value":{"value":"reject","label":"reject"},"operator":{"value":"is","label":"is"}}],"combinator":"and","not":false}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="UserTask_0f7dnic" name="Request Quotations" activiti:formKey="requestQuotation" activiti:assignee="" activiti:candidateUserVariableName="" activiti:candidateUserFieldName="purchaser" activiti:candidateUsersField="" activiti:candidateGroupsField="" activiti:candidateRoles="purchaser">
+    <userTask id="UserTask_0f7dnic" name="Request Quotations" activiti:formKey="requestQuotation" activiti:assignee="" activiti:candidateUserVariableName="" activiti:candidateUserFieldName="" activiti:candidateUsersField="" activiti:candidateGroupsField="" activiti:candidateRoles="purchaser">
       <incoming>SequenceFlow_16nyqzh</incoming>
       <incoming>SequenceFlow_09xmjis</incoming>
       <outgoing>SequenceFlow_0knr23q</outgoing>
@@ -29,7 +29,7 @@
     <sequenceFlow id="SequenceFlow_16nyqzh" name="Approve" sourceRef="ExclusiveGateway_0gfn3n5" targetRef="UserTask_0f7dnic">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[{"id":"g-GFtu77q2AINoXRLIVis7A","rules":[{"id":"r-Ri75ZznT3HJt7WcdXGnqZ","field":{"value":"analyzeRequest","label":"analyzeRequest","type":"OUTCOME"},"value":{"value":"approve","label":"approve"},"operator":{"value":"is","label":"is"}}],"combinator":"and","not":false}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="UserTask_16mccp3" name="Analyze and Approve Quotations" activiti:formKey="analyzeQuotations" activiti:assignee="" activiti:candidateUserVariableName="" activiti:candidateUserFieldName="" activiti:candidateUsersField="selectedManager" activiti:candidateGroupsField="" activiti:candidateRoles="">
+    <userTask id="UserTask_16mccp3" name="Analyze and Approve Quotations" activiti:formKey="analyzeQuotations" activiti:assignee="" activiti:candidateUserVariableName="" activiti:candidateUserFieldName="" activiti:candidateUsersField="reviewedBy" activiti:candidateGroupsField="" activiti:candidateRoles="">
       <incoming>SequenceFlow_0knr23q</incoming>
       <outgoing>SequenceFlow_06pcj3b</outgoing>
     </userTask>
@@ -44,7 +44,7 @@
     <sequenceFlow id="SequenceFlow_09xmjis" name="Reject" sourceRef="ExclusiveGateway_0rvjc12" targetRef="UserTask_0f7dnic">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[{"id":"g-qIx35mBZGNIEdf65mbdnu","rules":[{"id":"r-_8kdYoYubncBWlq57ymQu","field":{"value":"analyzeQuotations","label":"analyzeQuotations","type":"OUTCOME"},"value":{"value":"reject","label":"reject"},"operator":{"value":"is","label":"is"}}],"combinator":"and","not":false}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="UserTask_1lc704r" name="Perform Purchase" activiti:formKey="performPurchase" activiti:assignee="" activiti:candidateUserVariableName="" activiti:candidateUserFieldName="" activiti:candidateUsersField="purchaser" activiti:candidateGroupsField="" activiti:candidateRoles="">
+    <userTask id="UserTask_1lc704r" name="Perform Purchase" activiti:formKey="performPurchase" activiti:assignee="" activiti:candidateUserVariableName="" activiti:candidateUserFieldName="" activiti:candidateUsersField="" activiti:candidateGroupsField="" activiti:candidateRoles="purchaser">
       <incoming>SequenceFlow_0eb7zed</incoming>
       <outgoing>SequenceFlow_1h8on4u</outgoing>
     </userTask>
@@ -56,7 +56,7 @@
       <outgoing>SequenceFlow_1d8s2gr</outgoing>
     </userTask>
     <sequenceFlow id="SequenceFlow_1h8on4u" sourceRef="UserTask_1lc704r" targetRef="UserTask_0kh6b7c" />
-    <userTask id="UserTask_11pzssm" name="Perform Payment" activiti:formKey="performPayment" activiti:assignee="" activiti:candidateUserVariableName="" activiti:candidateUserFieldName="accountant" activiti:candidateUsersField="" activiti:candidateGroupsField="" activiti:candidateRoles="accountant">
+    <userTask id="UserTask_11pzssm" name="Perform Payment" activiti:formKey="performPayment" activiti:assignee="" activiti:candidateUserVariableName="" activiti:candidateUserFieldName="" activiti:candidateUsersField="" activiti:candidateGroupsField="" activiti:candidateRoles="accountant">
       <incoming>SequenceFlow_1d8s2gr</incoming>
       <outgoing>SequenceFlow_1s7epmv</outgoing>
     </userTask>
@@ -66,11 +66,21 @@
     </endEvent>
     <sequenceFlow id="SequenceFlow_1s7epmv" sourceRef="UserTask_11pzssm" targetRef="EndEvent_1g2e2ik" />
     <endEvent id="EndEvent_0fu45ov">
-      <incoming>SequenceFlow_0x5anki</incoming>
+      <incoming>SequenceFlow_1scbxmf</incoming>
     </endEvent>
-    <sequenceFlow id="SequenceFlow_0x5anki" name="Cancel Procurement" sourceRef="ExclusiveGateway_0rvjc12" targetRef="EndEvent_0fu45ov">
+    <sequenceFlow id="SequenceFlow_0x5anki" name="Cancel Procurement" sourceRef="ExclusiveGateway_0rvjc12" targetRef="EmailTask_0ujdw72">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[{"id":"g-AW624dI2k2AadFpaaU8B0","rules":[{"id":"r-7rzvxcUHmNMoh6RScmtao","field":{"value":"analyzeQuotations","label":"analyzeQuotations","type":"OUTCOME"},"value":{"value":"cancelProcurement","label":"cancelProcurement"},"operator":{"value":"is","label":"is"}}],"combinator":"and","not":false}]]></conditionExpression>
     </sequenceFlow>
+    <emailTask id="EmailTask_0el9oin" name="Notify Requester" implementation="email-service-task" activiti:emailTo="{{_vars.initiator.email}}" activiti:subject="Procurement request rejected" activiti:templateName="templates/rejected.pug">
+      <incoming>SequenceFlow_1ti8soo</incoming>
+      <outgoing>SequenceFlow_1jcycc4</outgoing>
+    </emailTask>
+    <sequenceFlow id="SequenceFlow_1jcycc4" sourceRef="EmailTask_0el9oin" targetRef="EndEvent_0prcxei" />
+    <emailTask id="EmailTask_0ujdw72" name="Notify Requester" implementation="email-service-task" activiti:emailTo="{{_vars.initiator.email}}" activiti:subject="Procurement request rejected" activiti:templateName="templates/rejected.pug">
+      <incoming>SequenceFlow_0x5anki</incoming>
+      <outgoing>SequenceFlow_1scbxmf</outgoing>
+    </emailTask>
+    <sequenceFlow id="SequenceFlow_1scbxmf" sourceRef="EmailTask_0ujdw72" targetRef="EndEvent_0fu45ov" />
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_procurement_process">
     <bpmndi:BPMNPlane id="BPMNPlane_completeformprocess" bpmnElement="procurement_process">
@@ -95,13 +105,13 @@
         <di:waypoint x="475" y="125" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="EndEvent_0prcxei_di" bpmnElement="EndEvent_0prcxei">
-        <omgdc:Bounds x="482" y="242" width="36" height="36" />
+        <omgdc:Bounds x="482" y="392" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1ti8soo_di" bpmnElement="SequenceFlow_1ti8soo">
         <di:waypoint x="500" y="150" />
-        <di:waypoint x="500" y="242" />
+        <di:waypoint x="500" y="270" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="468" y="185" width="32" height="14" />
+          <omgdc:Bounds x="468" y="198" width="32" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="UserTask_0f7dnic_di" bpmnElement="UserTask_0f7dnic">
@@ -169,14 +179,28 @@
         <di:waypoint x="1592" y="210" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="EndEvent_0fu45ov_di" bpmnElement="EndEvent_0fu45ov">
-        <omgdc:Bounds x="922" y="332" width="36" height="36" />
+        <omgdc:Bounds x="922" y="512" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0x5anki_di" bpmnElement="SequenceFlow_0x5anki">
         <di:waypoint x="940" y="235" />
-        <di:waypoint x="940" y="332" />
+        <di:waypoint x="940" y="370" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="948" y="281" width="63" height="27" />
+          <omgdc:Bounds x="948" y="305" width="63" height="27" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EmailTask_0el9oin_di" bpmnElement="EmailTask_0el9oin">
+        <omgdc:Bounds x="450" y="270" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1jcycc4_di" bpmnElement="SequenceFlow_1jcycc4">
+        <di:waypoint x="500" y="350" />
+        <di:waypoint x="500" y="392" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EmailTask_0ujdw72_di" bpmnElement="EmailTask_0ujdw72">
+        <omgdc:Bounds x="890" y="370" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1scbxmf_di" bpmnElement="SequenceFlow_1scbxmf">
+        <di:waypoint x="940" y="450" />
+        <di:waypoint x="940" y="512" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

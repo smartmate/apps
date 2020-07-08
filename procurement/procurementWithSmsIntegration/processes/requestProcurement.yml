@@ -6,7 +6,7 @@ icon: money-bill
 summary:
   title: "Procurement {{title}}"
   subtitle: "Created at {{createdAt}}"
-mainTable: procurements
+mainTable: purchaseRequisition
 startsFromExistingData: false
 publicStart: false
 
@@ -60,7 +60,7 @@ forms:
       - _statement: "In the \"Department\" field select the Department that this request is for"
       - department
       - _statement: Choose a manager to review this application
-      - manager
+      - reviewedBy
       - comments
 
   analyzeRequest:

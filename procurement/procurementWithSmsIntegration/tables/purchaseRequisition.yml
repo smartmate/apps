@@ -1,7 +1,7 @@
 type: table
-key: procurements
-name: Procurements
-itemName: Procurement
+key: purchaseRequisition
+name: Purchase Requisitions
+itemName: Purchase Requisition
 summary:
   title: "Procurement {{title}}"
   subtitle: "Created at  {{createdAt}}"
@@ -48,31 +48,21 @@ fields:
     label: Approved
   requester:
     type: user
-    label: Requester
-  manager:
-    type: relationship
-    label: Manager
-    table: managers
-    required: true
-  selectedManager:
-    type: user
-    label: Selected Manager
+    label: Request By
     readOnly: true
-  accountant:
+  reviewedBy:
     type: user
-    label: Accountant 
-  purchaser:
-    type: user
-    label: Purchaser
+    label: Reviewer
+    required: true
   approvedQuotation:
     type: text
     label: Approved Quotation
   rejectReason:
     type: textArea
-    label: Manager Comments
+    label: Reject Reason
   rejectQuotationsReason:
     type: textArea
-    label: Manager Comments
+    label: Reject Reason
   procurementType:
     type: select
     label: Procurement Type
@@ -94,17 +84,13 @@ fields:
   quantity:
     type: number
     label: "Quantity (if applies)"
-  liveryDate:
+  deliveryDate:
     type: date
     label: Delivery Date
   department:
-    type: select
+    type: relationship
     label: Department
-    options:
-      accountable: Accountable Department
-      ti: TI Department
-      ht: HR Department
-      management: management department
+    table: departments
     required: true
   quotations:
     type: table

@@ -1,14 +1,14 @@
 type: app
-id: procurementSms
+id: procurementWithSmsIntegration
 name: Procurement
 icon: money-check-alt
 color: "#FB9700"
 
 menuItems:
   - type: table
-    target: procurements
+    target: purchaseRequisition
   - type: table
-    target: managers
+    target: departments
 
 roles:
   requester:

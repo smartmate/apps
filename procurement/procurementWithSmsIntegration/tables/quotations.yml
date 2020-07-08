@@ -1,10 +1,10 @@
 type: table
-key: managers
-name: Managers
-itemName: Managers
+key: quotations
+name: quotations
+itemName: Quotation
 summary:
-  title: "{{firstName}} {{lastName}}"
-  subtitle: "{{email}} - {{phone}}"
+  title: "{{provider}} - {{contact}}"
+  subtitle: "Total: {{total}}"
 
 permissions:
   requester:
@@ -37,25 +37,19 @@ permissions:
     delete: false
 
 fields:
-  firstName:
+  provider:
     type: text
-    label: First Name
-    required: true
-  lastName:
+    label: Provider
+  contactPhone:
     type: text
-    label: Last Name
     required: true
-  phone:
-    type: text
-    label: Phone
+    label: Contact Phone
+  document:
+    type: file
+    label: Document
     required: true
-  email:
-    type: email
-    label: Email
+  total:
+    type: money
+    label: Total
     required: true
 
-form:
-  rows:
-    - _title: Register new managers
-    - [firstName, lastName]
-    - [phone, email]
