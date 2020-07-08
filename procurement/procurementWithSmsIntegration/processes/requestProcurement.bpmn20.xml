@@ -4,7 +4,7 @@
     <startEvent id="startEvent1" name="Start" activiti:formKey="request" activiti:initiator="initiator">
       <outgoing>SequenceFlow_1bjycjb</outgoing>
     </startEvent>
-    <userTask id="UserTask_1eiz5ag" name="Analyze and Approve" activiti:formKey="analyzeRequest" activiti:assignee="" activiti:candidateUserVariableName="" activiti:candidateUserFieldName="" activiti:candidateUsersField="reviewedBy" activiti:candidateGroupsField="" activiti:candidateRoles="">
+    <userTask id="UserTask_1eiz5ag" name="Analyze and Approve" activiti:formKey="analyzeRequest" activiti:assignee="" activiti:candidateUserVariableName="" activiti:candidateUserFieldName="" activiti:candidateUsersField="approvedBy" activiti:candidateGroupsField="" activiti:candidateRoles="">
       <incoming>SequenceFlow_1bjycjb</incoming>
       <outgoing>SequenceFlow_17jodr1</outgoing>
     </userTask>
@@ -29,7 +29,7 @@
     <sequenceFlow id="SequenceFlow_16nyqzh" name="Approve" sourceRef="ExclusiveGateway_0gfn3n5" targetRef="UserTask_0f7dnic">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[{"id":"g-GFtu77q2AINoXRLIVis7A","rules":[{"id":"r-Ri75ZznT3HJt7WcdXGnqZ","field":{"value":"analyzeRequest","label":"analyzeRequest","type":"OUTCOME"},"value":{"value":"approve","label":"approve"},"operator":{"value":"is","label":"is"}}],"combinator":"and","not":false}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="UserTask_16mccp3" name="Analyze and Approve Quotations" activiti:formKey="analyzeQuotations" activiti:assignee="" activiti:candidateUserVariableName="" activiti:candidateUserFieldName="" activiti:candidateUsersField="reviewedBy" activiti:candidateGroupsField="" activiti:candidateRoles="">
+    <userTask id="UserTask_16mccp3" name="Analyze and Approve Quotations" activiti:formKey="analyzeQuotations" activiti:assignee="" activiti:candidateUserVariableName="" activiti:candidateUserFieldName="" activiti:candidateUsersField="approvedBy" activiti:candidateGroupsField="" activiti:candidateRoles="">
       <incoming>SequenceFlow_0knr23q</incoming>
       <outgoing>SequenceFlow_06pcj3b</outgoing>
     </userTask>

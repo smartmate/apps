@@ -14,7 +14,7 @@ fieldGroups:
   readOnlyRequestData:
     readOnly: true
     rows:
-      - requester
+      - requestedBy
       - requestedItems
       - justification
       - department
@@ -58,7 +58,7 @@ forms:
       - _statement: "In the \"Department\" field select the Department that this request is for"
       - department
       - _statement: Choose a manager to review this application
-      - reviewedBy
+      - approvedBy
       - comments
 
   analyzeRequest:

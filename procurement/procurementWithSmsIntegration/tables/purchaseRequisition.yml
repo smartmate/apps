@@ -46,13 +46,13 @@ fields:
   approved:
     type: boolean
     label: Approved
-  requester:
+  requestedBy:
     type: user
     label: Request By
     readOnly: true
-  reviewedBy:
+  approvedBy:
     type: user
-    label: Reviewer
+    label: Approved By
     required: true
   approvedQuotation:
     type: text
