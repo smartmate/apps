@@ -46,7 +46,3 @@ fields:
     label: User Group
     required: true
 
-form:
-  rows:
-    - _title: Add Department
-    - name

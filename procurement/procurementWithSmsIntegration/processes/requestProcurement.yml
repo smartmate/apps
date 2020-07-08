@@ -1,10 +1,10 @@
 type: process
 key: requestProcurement
 name: Request Procurement
-description: Request a procurement for a department
+description: Handles a procurement request, with manager approval, quotation requests, and payment processing. Includes integration with Twilio to send an SMS to the manager that should approve the request.
 icon: money-bill
 summary:
-  title: "Purchase Requisition"
+  title: "Purchase Requisition by {{requestedBy.firstName}} {{requestedBy.lastName}}"
   subtitle: "Created at {{createdAt}}"
 mainTable: purchaseRequisition
 startsFromExistingData: false
@@ -14,6 +14,7 @@ fieldGroups:
   readOnlyRequestData:
     readOnly: true
     rows:
+      - description
       - requestedBy
       - requestedItems
       - justification
@@ -51,13 +52,15 @@ forms:
   request:
     name: Procurement Request
     rows:
+      - _statement: Enter a brief description for this request.
+      - description
       - _statement: In the table enter the items to request.
       - requestedItems
-      - _statement: "In the \"Justification\" field enter the reason why this procurement is need it"
+      - _statement: "In the \"Justification\" field enter the reason why this procurement is needed it"
       - justification
       - _statement: "In the \"Department\" field select the Department that this request is for"
       - department
-      - _statement: Choose a manager to review this application
+      - _statement: Choose a manager to review this request
       - approvedBy
       - comments
 
@@ -108,13 +111,13 @@ forms:
       - _group: requestWithQuotations
       - approvedQuotation:
           readOnly: true
-      - liveryDate
+      - deliveryDate
 
   receivePurchase:
     name: Receive Purchase
     rows:
       - _group: readOnlyRequestData
-      - liveryDate:
+      - deliveryDate:
           readOnly: true
 
   performPayment:

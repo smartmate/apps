@@ -3,8 +3,8 @@ key: purchaseRequisition
 name: Purchase Requisitions
 itemName: Purchase Requisition
 summary:
-  title: "Purchase Requisition by {{requester.firstName}} {{requester.lastName}}"
-  subtitle: "Created at {{createdAt}}"
+  title: "{{description}}"
+  subtitle: "Requested by {{requestedBy.firstName}} {{requestedBy.lastName}} at {{createdAt}}"
 
 permissions:
   requester:
@@ -57,6 +57,10 @@ fields:
   approvedQuotation:
     type: text
     label: Approved Quotation
+  description:
+    type: text
+    lael: Description
+    required: true
   rejectReason:
     type: textArea
     label: Reject Reason

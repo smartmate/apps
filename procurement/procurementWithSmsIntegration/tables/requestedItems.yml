@@ -4,7 +4,7 @@ name: Requested Items
 itemName: Requested Item
 summary:
   title: "{{itemTitle}}"
-  subtitle: "{{descriptionItem}}"
+  subtitle: "{{itemDescription}}"
 
 permissions:
   requester:
@@ -48,10 +48,12 @@ fields:
     type: text
     label: Item Title
     required: true
-  descriptionItem:
+  itemDescription:
     type: text
     label: Description
     required: true
   quantity:
     type: number
-    label: "Quantity (if applies)"
+    label: Quantity
+    default: 1
+    required: true
