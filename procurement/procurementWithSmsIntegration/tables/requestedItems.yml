@@ -1,10 +1,10 @@
 type: table
-key: quotations
-name: quotations
-itemName: Quotation
+key: requestedItems
+name: Requested Items
+itemName: Requested Item
 summary:
-  title: "{{provider}} - {{contactPhone}}"
-  subtitle: "Total: {{total}}"
+  title: "{{itemTitle}}"
+  subtitle: "{{descriptionItem}}"
 
 permissions:
   requester:
@@ -37,19 +37,21 @@ permissions:
     delete: false
 
 fields:
-  provider:
+  procurementType:
+    type: select
+    label: Item Type
+    options:
+      service: Service
+      supplies: Supplies
+    required: true
+  itemTitle:
     type: text
-    label: Provider
-  contactPhone:
+    label: Item Title
+    required: true
+  descriptionItem:
     type: text
+    label: Description
     required: true
-    label: Contact Phone
-  document:
-    type: file
-    label: Document
-    required: true
-  total:
-    type: money
-    label: Total
-    required: true
-
+  quantity:
+    type: number
+    label: "Quantity (if applies)"

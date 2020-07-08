@@ -3,8 +3,8 @@ key: purchaseRequisition
 name: Purchase Requisitions
 itemName: Purchase Requisition
 summary:
-  title: "Procurement {{title}}"
-  subtitle: "Created at  {{createdAt}}"
+  title: "Purchase Requisition by {{requester.firstName}} {{requester.lastName}}"
+  subtitle: "Created at {{createdAt}}"
 
 permissions:
   requester:
@@ -63,16 +63,10 @@ fields:
   rejectQuotationsReason:
     type: textArea
     label: Reject Reason
-  procurementType:
-    type: select
-    label: Procurement Type
-    options:
-      service: Service
-      supplies: Supplies
-    required: true
-  title:
-    type: text
-    label: Title
+  requestedItems:
+    type: table
+    table: requestedItems
+    label: Requested Items 
     required: true
   justification:
     type: textArea
@@ -81,9 +75,6 @@ fields:
   comments:
     type: textArea
     label: Comments
-  quantity:
-    type: number
-    label: "Quantity (if applies)"
   deliveryDate:
     type: date
     label: Delivery Date

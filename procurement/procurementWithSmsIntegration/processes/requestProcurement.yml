@@ -4,7 +4,7 @@ name: Request Procurement
 description: Request a procurement for a department
 icon: money-bill
 summary:
-  title: "Procurement {{title}}"
+  title: "Purchase Requisition"
   subtitle: "Created at {{createdAt}}"
 mainTable: purchaseRequisition
 startsFromExistingData: false
@@ -15,8 +15,7 @@ fieldGroups:
     readOnly: true
     rows:
       - requester
-      - title
-      - quantity
+      - requestedItems
       - justification
       - department
       - comments
@@ -52,9 +51,8 @@ forms:
   request:
     name: Procurement Request
     rows:
-      - _statement: In the next field enter the request title.
-      - title
-      - quantity
+      - _statement: In the table enter the items to request.
+      - requestedItems
       - _statement: "In the \"Justification\" field enter the reason why this procurement is need it"
       - justification
       - _statement: "In the \"Department\" field select the Department that this request is for"
