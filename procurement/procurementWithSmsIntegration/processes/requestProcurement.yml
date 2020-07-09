@@ -136,7 +136,7 @@ serviceTasks:
     method: POST
     url: <PLACE YOUR ENDPOINT URL>
     query:
-      workspace: "testproduction"
+      workspace: <YOUR WORKSPACE NAME>
   saveRequester:
     name: Save requester
     type: dataSetter
