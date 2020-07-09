@@ -3,7 +3,6 @@ id: vacationsApprovalAWSLambda
 name: Vacations Approval usign Serverless framework
 icon: umbrella-beach # Search icons at https://fontawesome.com/icons?d=gallery&s=solid&m=free
 color: "#1FF2DA"
-active: false
 
 menuItems:
   - type: table

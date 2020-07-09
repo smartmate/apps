@@ -3,7 +3,6 @@ id: vacationsApprovalGoogle
 name: Vacations Approval usign GCloud Functions
 icon: umbrella-beach # Search icons at https://fontawesome.com/icons?d=gallery&s=solid&m=free
 color: "#34EBE5"
-active: false
 
 menuItems:
   - type: table
