@@ -43,6 +43,7 @@ fields:
     options:
       service: Service
       supplies: Supplies
+      equitment: Equipment
     required: true
   itemTitle:
     type: text

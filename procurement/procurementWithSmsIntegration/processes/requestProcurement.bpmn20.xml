@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:activiti="http://activiti.org/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.activiti.org/processdef">
-  <process id="procurement_process" name="Example process" isExecutable="true">
+  <process id="procurement_process" name="Procurement process" isExecutable="true">
     <startEvent id="startEvent1" name="Start" activiti:formKey="request" activiti:initiator="initiator">
       <outgoing>SequenceFlow_0ipqfu9</outgoing>
     </startEvent>
@@ -44,10 +44,10 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[{"id":"g-qIx35mBZGNIEdf65mbdnu","rules":[{"id":"r-_8kdYoYubncBWlq57ymQu","field":{"value":"analyzeQuotations","label":"analyzeQuotations","type":"OUTCOME"},"value":{"value":"reject","label":"reject"},"operator":{"value":"is","label":"is"}}],"combinator":"and","not":false}]]></conditionExpression>
     </sequenceFlow>
     <userTask id="UserTask_1lc704r" name="Perform Purchase" activiti:formKey="performPurchase" activiti:assignee="" activiti:candidateUserVariableName="" activiti:candidateUserFieldName="" activiti:candidateUsersField="" activiti:candidateGroupsField="" activiti:candidateRoles="purchaser">
-      <incoming>SequenceFlow_0eb7zed</incoming>
+      <incoming>SequenceFlow_0q62ndh</incoming>
       <outgoing>SequenceFlow_1h8on4u</outgoing>
     </userTask>
-    <sequenceFlow id="SequenceFlow_0eb7zed" name="Approve" sourceRef="ExclusiveGateway_0rvjc12" targetRef="UserTask_1lc704r">
+    <sequenceFlow id="SequenceFlow_0eb7zed" name="Approve" sourceRef="ExclusiveGateway_0rvjc12" targetRef="ServiceTask_1mimb2c">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[{"id":"g-GljPu5Xp8GSJ0mkCmhBol","rules":[{"id":"r-oGpbcupsjzMffdhv0sAc6","field":{"value":"analyzeQuotations","label":"analyzeQuotations","type":"OUTCOME"},"value":{"value":"approve","label":"approve"},"operator":{"value":"is","label":"is"}}],"combinator":"and","not":false}]]></conditionExpression>
     </sequenceFlow>
     <userTask id="UserTask_0kh6b7c" name="Receive Purchase" activiti:formKey="receivePurchase" activiti:assignee="${initiator}" activiti:candidateUserVariableName="" activiti:candidateUserFieldName="" activiti:candidateUsersField="" activiti:candidateGroupsField="" activiti:candidateRoles="">
@@ -96,6 +96,16 @@
     </serviceTask>
     <sequenceFlow id="SequenceFlow_0cawvoi" sourceRef="ServiceTask_1vgeg27" targetRef="ServiceTask_1sv6m7z" />
     <sequenceFlow id="SequenceFlow_0ipqfu9" sourceRef="startEvent1" targetRef="ServiceTask_1vgeg27" />
+    <generateDocumentTask id="GenerateDocumentTask_15jv6fj" name="Generate Documentation" implementation="templating-service-task" activiti:templateName="templates/Purchase Requisition.docx" activiti:outputPDFFileField="purchaseOrderPDF" activiti:outputFileField="purchaseOrder">
+      <incoming>SequenceFlow_0d3a95a</incoming>
+      <outgoing>SequenceFlow_0q62ndh</outgoing>
+    </generateDocumentTask>
+    <sequenceFlow id="SequenceFlow_0q62ndh" sourceRef="GenerateDocumentTask_15jv6fj" targetRef="UserTask_1lc704r" />
+    <serviceTask id="ServiceTask_1mimb2c" name="Save Approval Date" implementation="sm2-service-task" activiti:serviceTask="saveApprovalDate">
+      <incoming>SequenceFlow_0eb7zed</incoming>
+      <outgoing>SequenceFlow_0d3a95a</outgoing>
+    </serviceTask>
+    <sequenceFlow id="SequenceFlow_0d3a95a" sourceRef="ServiceTask_1mimb2c" targetRef="GenerateDocumentTask_15jv6fj" />
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_procurement_process">
     <bpmndi:BPMNPlane id="BPMNPlane_completeformprocess" bpmnElement="procurement_process">
@@ -120,9 +130,9 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1ti8soo_di" bpmnElement="SequenceFlow_1ti8soo">
         <di:waypoint x="500" y="150" />
-        <di:waypoint x="500" y="270" />
+        <di:waypoint x="500" y="230" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="468" y="198" width="32" height="14" />
+          <omgdc:Bounds x="468" y="180" width="32" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="UserTask_0f7dnic_di" bpmnElement="UserTask_0f7dnic">
@@ -147,8 +157,9 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_06pcj3b_di" bpmnElement="SequenceFlow_06pcj3b">
         <di:waypoint x="740" y="340" />
-        <di:waypoint x="940" y="340" />
-        <di:waypoint x="940" y="235" />
+        <di:waypoint x="860" y="340" />
+        <di:waypoint x="860" y="210" />
+        <di:waypoint x="915" y="210" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_09xmjis_di" bpmnElement="SequenceFlow_09xmjis">
         <di:waypoint x="940" y="185" />
@@ -159,35 +170,35 @@
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="UserTask_1lc704r_di" bpmnElement="UserTask_1lc704r">
-        <omgdc:Bounds x="1060" y="170" width="100" height="80" />
+        <omgdc:Bounds x="1390" y="170" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0eb7zed_di" bpmnElement="SequenceFlow_0eb7zed">
         <di:waypoint x="965" y="210" />
-        <di:waypoint x="1060" y="210" />
+        <di:waypoint x="1070" y="210" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="993" y="192" width="41" height="14" />
+          <omgdc:Bounds x="998" y="192" width="41" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="UserTask_0kh6b7c_di" bpmnElement="UserTask_0kh6b7c">
-        <omgdc:Bounds x="1230" y="170" width="100" height="80" />
+        <omgdc:Bounds x="1540" y="170" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1h8on4u_di" bpmnElement="SequenceFlow_1h8on4u">
-        <di:waypoint x="1160" y="210" />
-        <di:waypoint x="1230" y="210" />
+        <di:waypoint x="1490" y="210" />
+        <di:waypoint x="1540" y="210" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="UserTask_11pzssm_di" bpmnElement="UserTask_11pzssm">
-        <omgdc:Bounds x="1410" y="170" width="100" height="80" />
+        <omgdc:Bounds x="1700" y="170" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1d8s2gr_di" bpmnElement="SequenceFlow_1d8s2gr">
-        <di:waypoint x="1330" y="210" />
-        <di:waypoint x="1410" y="210" />
+        <di:waypoint x="1640" y="210" />
+        <di:waypoint x="1700" y="210" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="EndEvent_1g2e2ik_di" bpmnElement="EndEvent_1g2e2ik">
-        <omgdc:Bounds x="1592" y="192" width="36" height="36" />
+        <omgdc:Bounds x="1862" y="192" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1s7epmv_di" bpmnElement="SequenceFlow_1s7epmv">
-        <di:waypoint x="1510" y="210" />
-        <di:waypoint x="1592" y="210" />
+        <di:waypoint x="1800" y="210" />
+        <di:waypoint x="1862" y="210" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="EndEvent_0fu45ov_di" bpmnElement="EndEvent_0fu45ov">
         <omgdc:Bounds x="922" y="512" width="36" height="36" />
@@ -200,10 +211,10 @@
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="EmailTask_0el9oin_di" bpmnElement="EmailTask_0el9oin">
-        <omgdc:Bounds x="450" y="270" width="100" height="80" />
+        <omgdc:Bounds x="450" y="230" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1jcycc4_di" bpmnElement="SequenceFlow_1jcycc4">
-        <di:waypoint x="500" y="350" />
+        <di:waypoint x="500" y="310" />
         <di:waypoint x="500" y="392" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="EmailTask_0ujdw72_di" bpmnElement="EmailTask_0ujdw72">
@@ -237,6 +248,20 @@
       <bpmndi:BPMNEdge id="SequenceFlow_0ipqfu9_di" bpmnElement="SequenceFlow_0ipqfu9">
         <di:waypoint x="-115" y="125" />
         <di:waypoint x="-40" y="125" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="GenerateDocumentTask_15jv6fj_di" bpmnElement="GenerateDocumentTask_15jv6fj">
+        <omgdc:Bounds x="1230" y="170" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0q62ndh_di" bpmnElement="SequenceFlow_0q62ndh">
+        <di:waypoint x="1330" y="210" />
+        <di:waypoint x="1390" y="210" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_1mimb2c_di" bpmnElement="ServiceTask_1mimb2c">
+        <omgdc:Bounds x="1070" y="170" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0d3a95a_di" bpmnElement="SequenceFlow_0d3a95a">
+        <di:waypoint x="1170" y="210" />
+        <di:waypoint x="1230" y="210" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

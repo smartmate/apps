@@ -65,6 +65,14 @@ fields:
     type: signature
     label: Reviewer Signature 
     required: true
+  purchaseOrder:
+    type: file 
+    label: Purchase Order
+    readOnly: true
+  purchaseOrderPDF:
+    type: file 
+    label: Purchase Order Pdf
+    readOnly: true
   rejectReason:
     type: textArea
     label: Reject Reason
