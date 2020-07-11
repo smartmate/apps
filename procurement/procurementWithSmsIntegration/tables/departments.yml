@@ -1,0 +1,51 @@
+type: table
+key: departments
+name: Departments
+itemName: Department
+summary:
+  title: "{{name}} Department"
+
+permissions:
+  requester:
+    create: false
+    view: true
+    edit:
+      own: false
+      assigned: false
+    delete: false
+  manager:
+    create: true
+    view: true
+    edit:
+      own: true
+      assigned: true
+    delete: true
+  purchaser:
+    create: false
+    view: true
+    edit:
+      own: false
+      assigned: false
+    delete: false
+  accountant:
+    create: false
+    view: true
+    edit:
+      own: false
+      assigned: false
+    delete: false
+
+fields:
+  name:
+    type: text
+    label: Department Name
+    required: true
+  departmentGroup:
+    type: group
+    label: User Group
+    required: true
+
+form:
+  rows:
+    - name
+    - departmentGroup

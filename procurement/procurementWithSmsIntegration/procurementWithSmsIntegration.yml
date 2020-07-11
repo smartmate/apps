@@ -1,0 +1,26 @@
+type: app
+id: procurementWithSmsIntegration
+name: Procurement
+icon: money-check-alt
+color: "#FB9700"
+
+menuItems:
+  - type: table
+    target: purchaseRequisition
+  - type: table
+    target: departments
+
+roles:
+  requester:
+    name: Requester
+    description: Requests a procurement
+  manager:
+    name: Manager
+    description: Analyzes and approves the purchases requests
+  purchaser:
+    name: Purchaser
+    description: Makes quotations and performs purchases
+  accountant:
+    name: Accountant
+    description: Performs payments
+

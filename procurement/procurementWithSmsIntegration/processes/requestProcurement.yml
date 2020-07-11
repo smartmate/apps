@@ -1,0 +1,151 @@
+type: process
+key: requestProcurement
+name: Request Procurement
+description: Handles a procurement request, with manager approval, quotation requests, and payment processing. Includes integration with Twilio to send an SMS to the manager that should approve the request.
+icon: money-bill
+summary:
+  title: "{{description}"
+  subtitle: "Requested by {{requestedBy.firstName}} {{requestedBy.lastName}} at {{createdAt}}"
+mainTable: purchaseRequisition
+startsFromExistingData: false
+publicStart: false
+
+fieldGroups:
+  readOnlyRequestData:
+    readOnly: true
+    rows:
+      - description
+      - requestedBy
+      - requestedItems
+      - justification
+      - department
+      - comments
+  
+  requestWithQuotations:
+    rows:
+      - _group: readOnlyRequestData
+      - quotations
+  
+permissions:
+  requester:
+    start: true
+    pause:
+      own: true
+    archive: false
+  manager:
+    start: true
+    pause: true
+    archive: true
+  purchaser:
+    start: true
+    pause:
+      own: true
+    archive: false
+  accountant:
+    start: true
+    pause:
+      own: true
+    archive: false
+
+
+forms:
+  request:
+    name: Procurement Request
+    rows:
+      - _statement: Enter a brief description for this request.
+      - description
+      - _statement: In the table enter the items to request.
+      - requestedItems
+      - _statement: "In the \"Justification\" field enter the reason why this procurement is needed it"
+      - justification
+      - _statement: "In the \"Department\" field select the Department that this request is for"
+      - department
+      - _statement: Choose a manager to review this request
+      - approvedBy
+      - comments
+
+  analyzeRequest:
+    name: Analyze and Approve
+    rows:
+      - _group: readOnlyRequestData
+    outcomes:
+      approve: Approve
+      reject:
+        title: Reject
+        form:
+          rows:
+            - rejectReason:
+                required: true
+
+  requestQuotation:
+    name: Request Quotations
+    rows:
+      - _group: requestWithQuotations
+
+  analyzeQuotations:
+    name: Analyze and Approve Quotations
+    rows:
+      - _group: requestWithQuotations
+    outcomes:
+      cancelProcurement:
+        title: Cancel Procurement
+        form:
+          rows:
+            - rejectReason:
+                required: true
+      approve:
+        title: Approve
+        form:
+          rows:
+            - approvedQuotation
+            - approvedSignature
+      reject:
+        title: Reject
+        form:
+          rows:
+            - rejectQuotationsReason:
+                required: true
+
+  performPurchase:
+    name: Performe Purchase
+    rows:
+      - _group: requestWithQuotations
+      - approvedQuotation:
+          readOnly: true
+      - deliveryDate
+
+  receivePurchase:
+    name: Receive Purchase
+    rows:
+      - _group: readOnlyRequestData
+      - deliveryDate:
+          readOnly: true
+
+  performPayment:
+    name: Perform Payment 
+    rows:
+      - _group: requestWithQuotations
+      - approvedQuotation:
+          readOnly: true
+
+serviceTasks:
+  sendSms:
+    name: Notify Manager
+    type: httpRequest
+    retries: 3
+    method: POST
+    url: <PLACE YOUR ENDPOINT URL>
+    query:
+      workspace: <YOUR WORKSPACE NAME>
+  saveRequester:
+    name: Save requester
+    type: dataSetter
+    mapping:
+      requestedBy: "{{_vars.initiator.id}}"
+      createdAt: "{{_vars.now}}"
+  saveApprovalDate:
+    name: Save approval date
+    type: dataSetter
+    mapping:
+      approvedAt: "{{_vars.now}}"
+

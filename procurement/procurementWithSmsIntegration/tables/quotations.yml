@@ -1,0 +1,55 @@
+type: table
+key: quotations
+name: quotations
+itemName: Quotation
+summary:
+  title: "{{provider}} - {{contactPhone}}"
+  subtitle: "Total: {{total}}"
+
+permissions:
+  requester:
+    create: false
+    view: true
+    edit:
+      own: false
+      assigned: false
+    delete: false
+  manager:
+    create: true
+    view: true
+    edit:
+      own: true
+      assigned: true
+    delete: true
+  purchaser:
+    create: false
+    view: true
+    edit:
+      own: false
+      assigned: false
+    delete: false
+  accountant:
+    create: false
+    view: true
+    edit:
+      own: false
+      assigned: false
+    delete: false
+
+fields:
+  provider:
+    type: text
+    label: Provider
+  contactPhone:
+    type: text
+    required: true
+    label: Contact Phone
+  document:
+    type: file
+    label: Document
+    required: true
+  total:
+    type: money
+    label: Total
+    required: true
+

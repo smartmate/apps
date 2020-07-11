@@ -1,0 +1,60 @@
+type: table
+key: requestedItems
+name: Requested Items
+itemName: Requested Item
+summary:
+  title: "{{itemTitle}}"
+  subtitle: "{{itemDescription}}"
+
+permissions:
+  requester:
+    create: false
+    view: true
+    edit:
+      own: false
+      assigned: false
+    delete: false
+  manager:
+    create: true
+    view: true
+    edit:
+      own: true
+      assigned: true
+    delete: true
+  purchaser:
+    create: false
+    view: true
+    edit:
+      own: false
+      assigned: false
+    delete: false
+  accountant:
+    create: false
+    view: true
+    edit:
+      own: false
+      assigned: false
+    delete: false
+
+fields:
+  procurementType:
+    type: select
+    label: Item Type
+    options:
+      service: Service
+      supplies: Supplies
+      equitment: Equipment
+    required: true
+  itemTitle:
+    type: text
+    label: Item Title
+    required: true
+  itemDescription:
+    type: text
+    label: Description
+    required: true
+  quantity:
+    type: number
+    label: Quantity
+    defaultValue: 1
+    required: true

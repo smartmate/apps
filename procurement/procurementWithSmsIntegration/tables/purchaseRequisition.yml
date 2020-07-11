@@ -1,0 +1,105 @@
+type: table
+key: purchaseRequisition
+name: Purchase Requisitions
+itemName: Purchase Requisition
+summary:
+  title: "{{description}}"
+  subtitle: "Requested by {{requestedBy.firstName}} {{requestedBy.lastName}} at {{createdAt}}"
+
+permissions:
+  requester:
+    create: false
+    view: true
+    edit:
+      own: false
+      assigned: false
+    delete: false
+  manager:
+    create: false
+    view: true
+    edit:
+      own: true
+      assigned: true
+    delete: true
+  purchaser:
+    create: false
+    view: true
+    edit:
+      own: false
+      assigned: false
+    delete: false
+  accountant:
+    create: false
+    view: true
+    edit:
+      own: false
+      assigned: false
+    delete: false
+
+fields:
+  createdAt:
+    type: datetime
+    label: Created At
+  approvedAt:
+    type: datetime
+    label: Approved At
+  approved:
+    type: boolean
+    label: Approved
+  requestedBy:
+    type: user
+    label: Request By
+    readOnly: true
+  approvedBy:
+    type: user
+    label: Approved By
+    required: true
+  approvedQuotation:
+    type: text
+    label: Approved Quotation
+  description:
+    type: text
+    label: Description
+    required: true
+  approvedSignature:
+    type: signature
+    label: Reviewer Signature 
+    required: true
+  purchaseOrder:
+    type: file 
+    label: Purchase Order
+    readOnly: true
+  purchaseOrderPDF:
+    type: file 
+    label: Purchase Order Pdf
+    readOnly: true
+  rejectReason:
+    type: textArea
+    label: Reject Reason
+  rejectQuotationsReason:
+    type: textArea
+    label: Reject Reason
+  requestedItems:
+    type: table
+    table: requestedItems
+    label: Requested Items 
+    required: true
+  justification:
+    type: textArea
+    label: Justification
+    required: true
+  comments:
+    type: textArea
+    label: Comments
+  deliveryDate:
+    type: date
+    label: Delivery Date
+  department:
+    type: relationship
+    label: Department
+    table: departments
+    required: true
+  quotations:
+    type: table
+    label: Quotations
+    table: quotations
