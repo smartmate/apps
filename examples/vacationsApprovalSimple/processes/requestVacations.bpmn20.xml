@@ -5,11 +5,11 @@
       <outgoing>SequenceFlow_13gxl4z</outgoing>
     </startEvent>
     <userTask id="UserTask_06p053z" name="Approve Vacations Request" activiti:formKey="approveRequest" activiti:assignee="" activiti:candidateUsersField="" activiti:candidateGroupsField="" activiti:candidateRoles="manager" activiti:candidateUserFieldName="reviewedBy" activiti:candidateUserVariableName="">
-      <incoming>SequenceFlow_13gxl4z</incoming>
       <incoming>SequenceFlow_0qki55s</incoming>
+      <incoming>SequenceFlow_0ibtg6g</incoming>
       <outgoing>SequenceFlow_0p2x67g</outgoing>
     </userTask>
-    <sequenceFlow id="SequenceFlow_13gxl4z" sourceRef="startEvent1" targetRef="UserTask_06p053z" />
+    <sequenceFlow id="SequenceFlow_13gxl4z" sourceRef="startEvent1" targetRef="ServiceTask_1e46kf3" />
     <exclusiveGateway id="ExclusiveGateway_1q8trus" name="Approval Decision">
       <incoming>SequenceFlow_0p2x67g</incoming>
       <outgoing>SequenceFlow_19gc2yj</outgoing>
@@ -45,21 +45,26 @@
     <sequenceFlow id="SequenceFlow_1gz38p7" sourceRef="EmailTask_1cei6rc" targetRef="EndEvent_0akppz9" />
     <sequenceFlow id="SequenceFlow_080na5f" sourceRef="EmailTask_0mejsob" targetRef="EndEvent_0akppz9" />
     <sequenceFlow id="SequenceFlow_0qki55s" sourceRef="UserTask_0h5ri9x" targetRef="UserTask_06p053z" />
+    <serviceTask id="ServiceTask_1e46kf3" name="Set Requester" implementation="sm2-service-task" activiti:serviceTask="setRequester">
+      <incoming>SequenceFlow_13gxl4z</incoming>
+      <outgoing>SequenceFlow_0ibtg6g</outgoing>
+    </serviceTask>
+    <sequenceFlow id="SequenceFlow_0ibtg6g" sourceRef="ServiceTask_1e46kf3" targetRef="UserTask_06p053z" />
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_example_process">
     <bpmndi:BPMNPlane id="BPMNPlane_completeformprocess" bpmnElement="example_process">
       <bpmndi:BPMNShape id="BPMNShape_startEvent1" bpmnElement="startEvent1">
-        <omgdc:Bounds x="155" y="110" width="30" height="30" />
+        <omgdc:Bounds x="25" y="110" width="30" height="30" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="146" y="147" width="48" height="27" />
+          <omgdc:Bounds x="16" y="147" width="48" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="UserTask_06p053z_di" bpmnElement="UserTask_06p053z">
         <omgdc:Bounds x="240" y="85" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_13gxl4z_di" bpmnElement="SequenceFlow_13gxl4z">
-        <di:waypoint x="185" y="125" />
-        <di:waypoint x="240" y="125" />
+        <di:waypoint x="55" y="125" />
+        <di:waypoint x="90" y="125" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ExclusiveGateway_1q8trus_di" bpmnElement="ExclusiveGateway_1q8trus" isMarkerVisible="true">
         <omgdc:Bounds x="395" y="100" width="50" height="50" />
@@ -120,6 +125,13 @@
         <di:waypoint x="550" y="420" />
         <di:waypoint x="290" y="420" />
         <di:waypoint x="290" y="165" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_1e46kf3_di" bpmnElement="ServiceTask_1e46kf3">
+        <omgdc:Bounds x="90" y="85" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0ibtg6g_di" bpmnElement="SequenceFlow_0ibtg6g">
+        <di:waypoint x="190" y="125" />
+        <di:waypoint x="240" y="125" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
