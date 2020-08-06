@@ -27,13 +27,13 @@ permissions:
 fieldGroups:
   requestData:
     rows:
-      - requester
       - [startDate, endDate]
       - requesterComments
 
   readOnlyRequestData:
     readOnly: true
     rows:
+      - requester
       - _group: requestData
 
 forms:
@@ -64,8 +64,13 @@ forms:
   makeChanges:
     name: Make Changes
     rows:
-      - reviewedBy:
-          readOnly: true
-      - changesRequested:
-          readOnly: true
+      - reviewedBy: {readOnly: true}
+      - changesRequested: {readOnly: true}
       - _group: requestData
+
+serviceTasks:
+  setRequester:
+    type: dataSetter
+    name: Set Requester
+    mapping:
+      requester: "{{_vars.initiator.id}}"
