@@ -11,20 +11,21 @@ async function run() {
   await workspace.load();
   await workspace.validate();
   const apps = workspace.getApps();
-  let appsInfo = {};
 
-  appsInfo['apps'] = [];
-  for(var i = 0; i < apps.length; i++) {
-    appsInfo['apps'][i] = {};
-    var id = apps[i]['_data']['id'];
-    if ( id !== undefined ) { appsInfo['apps'][i].name = id; }
-    var path = apps[i]['_path'];
-    if ( path !== undefined ) { appsInfo['apps'][i].path = path.replace(__dirname + '/', ''); }
-    var description = apps[i]['_data']['description'];
-    if ( description !== undefined ) { appsInfo['apps'][i].description = description; }
-  };
-  let yamlStr = yaml.safeDump(appsInfo['apps']);
+  const ymlInfo = apps.reduce((list, app) => {
+    const newData = {};
+    const id = app._data.id;
+    if ( id !== undefined ) { newData.name = id; }
+    const path = app._path;
+    if ( path !== undefined ) { newData.path = path.replace(__dirname + '/', ''); }
+    const description = app._data.description;
+    if ( description !== undefined ) { newData.description = description; }
+    list.push(newData);
+    return list;
+  }, []);
+  const yamlStr = yaml.safeDump(ymlInfo);
   fs.writeFileSync('apps.yml', yamlStr, 'utf8');
+
 };
 
 run();
