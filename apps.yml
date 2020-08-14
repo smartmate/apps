@@ -1,23 +1,12 @@
-- name: vacationsApprovalSimple
-  path: examples/vacationsApprovalSimple
-  description: A simple example of a vacations approval process
-
+- name: vacationsApprovalAWSLambda
+  path: examples/vacationsApprovalAWSLambdas
+- name: vacationsApprovalAzure
+  path: examples/vacationsApprovalAzureFunctions
+- name: vacationsApprovalGoogle
+  path: examples/vacationsApprovalGCloudFunction
 - name: vacationsApprovalServerless
   path: examples/vacationsApprovalServerless
-  description: A example of a vacations approval process using a Serverless Function to calculate days off
-
-- name: vacationsApprovalGCloud
-  path: examples/vacationsApprovalGCloudFunction
-  description: A example of a vacations approval process using a GCloud Function to calculate days off
-
-- name: vacationsApprovalAzureFunctions
-  path: examples/vacationsApprovalAzureFunctions
-  description: A example of a vacations approval process using an Azure Function to calculate days off
-
-- name: vacationsApprovalAWSLambdas
-  path: examples/vacationsApprovalAWSLambdas
-  description: A simple example of a vacations approval process using an AWS Lambda to calculate days off
-
-- name: procurementSimpleProcessWithSmsIntegration
+- name: vacationsApprovalSimple
+  path: examples/vacationsApprovalSimple
+- name: procurementWithSmsIntegration
   path: procurement/procurementWithSmsIntegration
-  description: A simple example of a procurement process with SMS integration using Twilio
