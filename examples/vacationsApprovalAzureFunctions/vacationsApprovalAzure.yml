@@ -1,6 +1,7 @@
 type: app
 id: vacationsApprovalAzure
 name: Vacations Approval usign Azure Functions
+description: A example of a vacations approval process using an Azure Function to calculate days off
 icon: umbrella-beach # Search icons at https://fontawesome.com/icons?d=gallery&s=solid&m=free
 color: "#E682FF"
 

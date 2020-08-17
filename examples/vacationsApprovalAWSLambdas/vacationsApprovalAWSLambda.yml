@@ -1,6 +1,7 @@
 type: app
 id: vacationsApprovalAWSLambda
 name: Vacations Approval usign Serverless framework
+description: A simple example of a vacations approval process using an AWS Lambda to calculate days off
 icon: umbrella-beach # Search icons at https://fontawesome.com/icons?d=gallery&s=solid&m=free
 color: "#1FF2DA"
 
