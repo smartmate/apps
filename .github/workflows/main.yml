@@ -2,7 +2,7 @@ name: Validate and Create apps.yml
 
 on:
   push:
-    branches: [ workflow ]
+    branches: [ master ]
 
 jobs:
   validate-app:
@@ -17,7 +17,7 @@ jobs:
       run: npm install -g smartmate-cli
     - name: Validate Current Workspace with the cli
       run: sm validate
-    - name: Execute script top generate apps.yml
+    - name: Execute script to generate apps.yml
       working-directory: src
       run: npm install && ./generate-apps-yml-file.js
     - name: Push apps.yml
