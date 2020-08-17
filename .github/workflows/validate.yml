@@ -13,9 +13,12 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '12.x'
-    - name: Get Current Branch Name
+    - uses: mdecoleman/pr-branch-name@1.0.0
+      name: Get branch name
       id: vars
-      run: echo ::set-output name=branch_name::${GITHUB_REF#refs/*/}
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+    - run: echo ${{ steps.vars.outputs.branch_name }}
     - name: Install Smartmate Cli
       run: npm install -g smartmate-cli
     - name: Validate Current Workspace with the cli
@@ -23,8 +26,6 @@ jobs:
     - name: Execute script to generate apps.yml
       working-directory: src
       run: npm install && ./generate-apps-yml-file.js
-    - name: test
-      run: echo "${{ steps.vars.outputs.branch_name }}"
     - name: Push apps.yml
       uses: github-actions-x/commit@v2.6
       with:
