@@ -1,6 +1,7 @@
 type: app
 id: procurementWithSmsIntegration
 name: Procurement
+description: A simple example of a procurement process with SMS integration using Twilio
 icon: money-check-alt
 color: "#FB9700"
 

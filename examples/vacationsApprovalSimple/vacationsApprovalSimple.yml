@@ -1,6 +1,7 @@
 type: app
 id: vacationsApprovalSimple
 name: Vacations Approval Simple Example
+description: A simple example of a vacations approval process
 icon: umbrella-beach # Search icons at https://fontawesome.com/icons?d=gallery&s=solid&m=free
 color: "#C7D13A"
 

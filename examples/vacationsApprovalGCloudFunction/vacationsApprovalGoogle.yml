@@ -1,6 +1,7 @@
 type: app
 id: vacationsApprovalGoogle
 name: Vacations Approval usign GCloud Functions
+description: A example of a vacations approval process using a GCloud Function to calculate days off
 icon: umbrella-beach # Search icons at https://fontawesome.com/icons?d=gallery&s=solid&m=free
 color: "#34EBE5"
 
