@@ -1,0 +1,29 @@
+{
+  "name": "apps",
+  "version": "1.0.0",
+  "description": "Smartmate Apps",
+  "main": "script.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smartmate/apps.git"
+  },
+  "keywords": [
+    "smartmate"
+  ],
+  "author": "Devsu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/smartmate/apps/issues"
+  },
+  "homepage": "https://github.com/smartmate/apps#readme",
+  "dependencies": {
+    "js-yaml": "^3.14.0",
+    "smartmate-workspace-tools": "^3.11.3"
+  }
+}
