@@ -1,0 +1,35 @@
+name: Validate and Create apps.yml
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  validate-app:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Get Current Branch Name
+      id: vars
+      run: echo ::set-output name=branch_name::${GITHUB_REF#refs/*/}
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+    - name: Install Smartmate Cli
+      run: npm install -g smartmate-cli
+    - name: Validate Current Workspace with the cli
+      run: sm validate
+    - name: Execute script to generate apps.yml
+      working-directory: src
+      run: npm install && ./generate-apps-yml-file.js
+    - name: Push apps.yml
+      uses: github-actions-x/commit@v2.6
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        push-branch: ${{ steps.vars.outputs.branch_name }}
+        commit-message: 'Update apps.yml'
+        force-add: 'true'
+        files: apps.yml
+        name: bot
+        email: bot@devsu.com

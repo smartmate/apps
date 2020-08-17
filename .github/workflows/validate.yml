@@ -1,0 +1,19 @@
+name: CI Validate Workspace
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  validate-app:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+    - name: Install Smartmate Cli
+      run: npm install -g smartmate-cli
+    - name: Validate Current Workspace with the cli
+      run: sm validate
