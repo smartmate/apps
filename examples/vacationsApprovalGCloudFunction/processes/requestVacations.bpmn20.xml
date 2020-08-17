@@ -2,7 +2,7 @@
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:activiti="http://activiti.org/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.activiti.org/processdef">
   <process id="example_process" name="Example process" isExecutable="true">
     <startEvent id="startEvent1" name="Request Vacations" activiti:formKey="startRequest" activiti:initiator="initiator">
-      <outgoing>SequenceFlow_1ahabkr</outgoing>
+      <outgoing>SequenceFlow_10cw7mg</outgoing>
     </startEvent>
     <userTask id="UserTask_06p053z" name="Approve Vacations Request" activiti:formKey="approveRequest" activiti:assignee="" activiti:candidateUsersField="" activiti:candidateGroupsField="" activiti:candidateRoles="manager" activiti:candidateUserFieldName="reviewedBy" activiti:candidateUserVariableName="">
       <incoming>SequenceFlow_0qki55s</incoming>
@@ -45,18 +45,23 @@
     <sequenceFlow id="SequenceFlow_080na5f" sourceRef="EmailTask_0mejsob" targetRef="EndEvent_0akppz9" />
     <sequenceFlow id="SequenceFlow_0qki55s" sourceRef="UserTask_0h5ri9x" targetRef="UserTask_06p053z" />
     <serviceTask id="ServiceTask_137242x" name="Calculate Days Off" implementation="sm2-service-task" activiti:serviceTask="calculateDaysOff">
-      <incoming>SequenceFlow_1ahabkr</incoming>
+      <incoming>SequenceFlow_02uh7fo</incoming>
       <outgoing>SequenceFlow_10bczif</outgoing>
     </serviceTask>
-    <sequenceFlow id="SequenceFlow_1ahabkr" sourceRef="startEvent1" targetRef="ServiceTask_137242x" />
     <sequenceFlow id="SequenceFlow_10bczif" sourceRef="ServiceTask_137242x" targetRef="UserTask_06p053z" />
+    <serviceTask id="ServiceTask_0daerk1" name="Set Requester" implementation="sm2-service-task" activiti:serviceTask="setRequester">
+      <incoming>SequenceFlow_10cw7mg</incoming>
+      <outgoing>SequenceFlow_02uh7fo</outgoing>
+    </serviceTask>
+    <sequenceFlow id="SequenceFlow_10cw7mg" sourceRef="startEvent1" targetRef="ServiceTask_0daerk1" />
+    <sequenceFlow id="SequenceFlow_02uh7fo" sourceRef="ServiceTask_0daerk1" targetRef="ServiceTask_137242x" />
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_example_process">
     <bpmndi:BPMNPlane id="BPMNPlane_completeformprocess" bpmnElement="example_process">
       <bpmndi:BPMNShape id="BPMNShape_startEvent1" bpmnElement="startEvent1">
-        <omgdc:Bounds x="-35" y="110" width="30" height="30" />
+        <omgdc:Bounds x="-235" y="110" width="30" height="30" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="-44" y="147" width="48" height="27" />
+          <omgdc:Bounds x="-244" y="147" width="48" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="UserTask_06p053z_di" bpmnElement="UserTask_06p053z">
@@ -125,13 +130,20 @@
       <bpmndi:BPMNShape id="ServiceTask_137242x_di" bpmnElement="ServiceTask_137242x">
         <omgdc:Bounds x="60" y="85" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_1ahabkr_di" bpmnElement="SequenceFlow_1ahabkr">
-        <di:waypoint x="-5" y="125" />
-        <di:waypoint x="60" y="125" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_10bczif_di" bpmnElement="SequenceFlow_10bczif">
         <di:waypoint x="160" y="125" />
         <di:waypoint x="240" y="125" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_0daerk1_di" bpmnElement="ServiceTask_0daerk1">
+        <omgdc:Bounds x="-110" y="85" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_10cw7mg_di" bpmnElement="SequenceFlow_10cw7mg">
+        <di:waypoint x="-205" y="125" />
+        <di:waypoint x="-110" y="125" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_02uh7fo_di" bpmnElement="SequenceFlow_02uh7fo">
+        <di:waypoint x="-10" y="125" />
+        <di:waypoint x="60" y="125" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
