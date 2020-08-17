@@ -1,13 +1,11 @@
-name: ContinuosIntegration
+name: Validate and Create apps.yml
 
 on:
   push:
     branches: [ workflow ]
-  pull_request:
-    branches: [ workflow ]
 
 jobs:
-  build:
+  validate-app:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -30,5 +28,5 @@ jobs:
         commit-message: 'Updated apps.yml'
         force-add: 'true'
         files: apps.yml
-        name: Steve
-        email: ssalazar@devsu.com
+        name: bot
+        email: bot@devsu.com
