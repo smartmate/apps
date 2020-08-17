@@ -9,6 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: Get Current Branch Name
+      id: vars
+      run: echo ::set-output name=branch_name::${GITHUB_REF#refs/*/}
     - name: Use Node.js
       uses: actions/setup-node@v1
       with:
@@ -24,8 +27,8 @@ jobs:
       uses: github-actions-x/commit@v2.6
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        push-branch: '${GITHUB_REF##*/}'
-        commit-message: 'Updated apps.yml'
+        push-branch: ${{ steps.vars.outputs.branch_name }}
+        commit-message: 'Update apps.yml'
         force-add: 'true'
         files: apps.yml
         name: bot
