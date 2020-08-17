@@ -23,6 +23,8 @@ jobs:
     - name: Execute script to generate apps.yml
       working-directory: src
       run: npm install && ./generate-apps-yml-file.js
+    - name: test
+      run: echo "${{ steps.vars.outputs.branch_name }}"
     - name: Push apps.yml
       uses: github-actions-x/commit@v2.6
       with:
