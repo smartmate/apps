@@ -30,9 +30,10 @@ jobs:
       uses: github-actions-x/commit@v2.6
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        push-branch: ${{ steps.vars.outputs.branch }}
+        push-branch: '${{ steps.vars.outputs.branch }}'
         commit-message: 'Update apps.yml'
         force-add: 'true'
         files: apps.yml
         name: bot
         email: bot@devsu.com
+        rebase: 'true'
