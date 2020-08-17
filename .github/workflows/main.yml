@@ -1,0 +1,33 @@
+name: ContinuosIntegration
+
+on:
+  push:
+    branches: [ workflow ]
+  pull_request:
+    branches: [ workflow ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+    - name: Install Smartmate Cli
+      run: npm install -g smartmate-cli
+    - name: Validate Current Workspace with the cli
+      run: sm validate
+    - name: Execute script top generate apps.yml
+      run: ./src/generate-apps-yml-file.js
+    - name: Push apps.yml
+      uses: github-actions-x/commit@v2.6
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        push-branch: 'workflow'
+        commit-message: 'Updated apps.yml'
+        force-add: 'true'
+        files: apps.yml
+        name: Steve
+        email: ssalazar@devsu.com
