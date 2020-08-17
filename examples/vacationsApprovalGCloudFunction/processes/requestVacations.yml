@@ -27,13 +27,13 @@ permissions:
 fieldGroups:
   requestData:
     rows:
-      - requester
       - [startDate, endDate]
       - requesterComments
 
   readOnlyRequestData:
     readOnly: true
     rows:
+      - requester
       - _group: requestData
       - daysOff
 
@@ -83,3 +83,9 @@ serviceTasks:
       endDate: "{{endDate}}"
     mapping:
       daysOff: "{{body.data}}"
+
+  setRequester:
+    type: dataSetter
+    name: Set Requester
+    mapping:
+      requester: "{{_vars.initiator.id}}"
