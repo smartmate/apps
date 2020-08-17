@@ -20,7 +20,8 @@ jobs:
     - name: Validate Current Workspace with the cli
       run: sm validate
     - name: Execute script top generate apps.yml
-      run: ./src/generate-apps-yml-file.js
+      working-directory: src
+      run: npm install && ./generate-apps-yml-file.js
     - name: Push apps.yml
       uses: github-actions-x/commit@v2.6
       with:
