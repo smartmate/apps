@@ -2,7 +2,7 @@ name: Validate and Create apps.yml
 
 on:
   push:
-    branches: [ master ]
+    branches: [ workflow ]
 
 jobs:
   validate-app:
@@ -24,7 +24,7 @@ jobs:
       uses: github-actions-x/commit@v2.6
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        push-branch: 'workflow'
+        push-branch: '${GITHUB_REF##*/}'
         commit-message: 'Updated apps.yml'
         force-add: 'true'
         files: apps.yml
