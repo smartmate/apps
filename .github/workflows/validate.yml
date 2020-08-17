@@ -14,11 +14,11 @@ jobs:
       with:
         node-version: '12.x'
     - uses: mdecoleman/pr-branch-name@1.0.0
-      name: Get branch name
+      name: Get branch
       id: vars
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-    - run: echo ${{ steps.vars.outputs.branch_name }}
+    - run: echo ${{ steps.vars.outputs.branch }}
     - name: Install Smartmate Cli
       run: npm install -g smartmate-cli
     - name: Validate Current Workspace with the cli
@@ -30,7 +30,7 @@ jobs:
       uses: github-actions-x/commit@v2.6
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        push-branch: ${{ steps.vars.outputs.branch_name }}
+        push-branch: ${{ steps.vars.outputs.branch }}
         commit-message: 'Update apps.yml'
         force-add: 'true'
         files: apps.yml
